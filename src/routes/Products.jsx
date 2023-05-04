@@ -3,28 +3,55 @@ import ProductCard from "../components/productComponents/ProductCard";
 import testData from "../data/testdata";
 import productSorting from "../utils/productSorting";
 import productMatch from "../utils/searchFunctions";
-import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { productsAtom } from "../data/atoms/productsAtom";
 
 
+const MainContainer = styled.main`
+	display: flex;
+	flex-direction: column;
+	padding: 2em 0;
+
+	@media (min-width: 770px) {
+		padding: 2em 3em;
+	}
+	@media (min-width: 1000px) {
+		padding: 2em 5em;
+	}
+`
+
+const PageHeading = styled.h1`
+	text-align: center;
+	margin-bottom: 0.5em;	
+`
+
+const SortSelect = styled.select`
+	align-self:flex-end;
+	padding: 0.3em;
+`
+
+const SearchInput = styled.input`
+	max-width: 15em;
+	margin-bottom: 1em;
+	padding: 0.3em;
+`
+
 const ProductGrid = styled.div`
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+	padding: 1em 0;
+
 	@media (min-width: 400px) {
-    gap: 1em;
-	grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-  }
+    	gap: 1em;
+		grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  	}
 	@media (min-width: 770px) {
-		padding: 3em;
 		grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
 	}
-	
 	@media (min-width: 1000px) {
-		padding: 3em 5em;
 		gap:2em;
-	grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  }
+		grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  	}
 `
 
 
@@ -42,25 +69,25 @@ const Products = () => {
 	}
 
 	return (
-		<div>
-			<h1>Products</h1>
-			<input
+		<MainContainer>
+			<PageHeading>Produkter</PageHeading>
+			<SearchInput
 				type="text"
 				placeholder="Sök efter produkt.."
 				onChange={handleSearchChange} />
-			<select name="sort" id="sort-select" onClick={handleSortingChange}>
+			<SortSelect name="sort" id="sort-select" onClick={handleSortingChange}>
 				<option value="popular">Mest populära</option>
 				<option value="alpha-rising" >A till Ö</option>
 				<option value="alpha-falling">Ö till A</option>
 				<option value="price-rising">Lägst pris</option>
 				<option value="price-falling">Högst pris</option>
-			</select>
+			</SortSelect>
 			<ProductGrid>
 				{productsToShow.map(({ productid, name, price, picture }) => (
 					<ProductCard key={productid} name={name} price={price} img={picture} />
 				))}
 			</ProductGrid>
-		</div>
+		</MainContainer>
 	)
 }
 

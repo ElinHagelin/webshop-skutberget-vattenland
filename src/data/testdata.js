@@ -2,7 +2,7 @@ const testData = [
 	{
 		"name": "Badring med motiv",
 		"description": "En badring med roligt donutmotiv som passar både barn och vuxna. Tillverkad av hållbart PVC-material.",
-		"price": 149,
+		"price": 139,
 		"productid": "BR-001",
 		"picture": [
 			"https://static.panduro.com/ArticleImages/1200x1200/803970_01.webp",
@@ -91,7 +91,7 @@ const testData = [
 	{
 		"name": "Cyklop",
 		"description": "Ett cyklop med snorkel för dig som vill se under vattnet utan att få vatten i ögonen!",
-		"price": 199,
+		"price": 189,
 		"productid": "WR-1001",
 		"picture": [
 			"https://cdn.shopify.com/s/files/1/0188/6063/8272/products/KidsCliffFisherCombosaet_Snorkelsaet_7_1.png?v=1651828646&width=950",
@@ -158,7 +158,7 @@ const testData = [
 	{
 		"name": "Badbåt",
 		"description": "En lekfull badbåt som flyter på vattnet.",
-		"price": 149,
+		"price": 119,
 		"productid": "BB-7001",
 		"picture": [
 			"https://www.jollyroom.se/storage/718D51A6A0646046896156E0B35B818FD153A822F8E3156D4A443C43E2107AA8/82621e4a3eb84c5eb638972172912e70/400-365-0-jpg.Jpeg/media/affcd31b087544789502a8fd4db48a64/1689002-2139_1.jpeg",
@@ -202,7 +202,7 @@ const testData = [
 	{
 		"name": "Badring enhörning",
 		"description": "För dig som vill ha en badring med axtra allt!",
-		"price": 199,
+		"price": 229,
 		"productid": "VRB001",
 		"picture": [
 			"https://assets.ellosgroup.com/i/ellos/b?$eg$&$em$&$ep$&$ed$&n=ell_1598740_Fs&mw=1500&fmt=webp",

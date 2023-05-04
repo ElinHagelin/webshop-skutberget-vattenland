@@ -1,9 +1,12 @@
+import { productsAtom } from "../data/atoms/productsAtom";
+import testData from "../data/testdata";
+
 
 
 const productSorting = (order, productsToShow, setProductsToShow) => {
 
 	if (order == 'popular') {
-		return
+		setProductsToShow(testData)
 	} else {
 		let valueToCompare = order == 'alpha-rising' || order == 'alpha-falling' ? 'name' : 'price'
 

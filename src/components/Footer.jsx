@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 const FooterStyled = styled.footer`
 	border: 3px solid black;
-	background-color: blue;
+	background-color: #9ddcf0;
 	padding: 1em;
 	display: flex;
 	justify-content: space-around;
