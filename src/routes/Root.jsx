@@ -6,7 +6,7 @@ import Products from './Products'
 import styled from 'styled-components'
 // import './App.css'
 
-const Body = styled.body`
+const Body = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;

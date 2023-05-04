@@ -1,16 +1,36 @@
 import styled from "styled-components"
+import facebookLogo from '../assets/icons/facebook-circle-fill.png'
+import instagramLogo from '../assets/icons/instagram-fill.png'
+import tiktokLogo from '../assets/icons/tiktok-fill.png'
 
 
 const FooterStyled = styled.footer`
 	border: 3px solid black;
 	background-color: #9ddcf0;
-	padding: 1em;
+	padding: 2rem;
 	display: flex;
 	justify-content: space-around;
+	flex-direction: column;
+	align-items: center;
+	/* flex-wrap: wrap; */
+	text-align: center;
+	gap: 1rem;
+
+	@media (min-width: 620px) {
+    	flex-direction: row;
+		align-items: flex-start;
+  	}
 `
 
 const Paragraph = styled.p`
 	margin: 0;
+`
+
+const LogoContainer = styled.div`
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	padding: 1rem;
 `
 
 
@@ -28,6 +48,11 @@ const Footer = () => (
 		</div>
 		<div>
 			<h4>Följ oss på sociala medier</h4>
+			<LogoContainer>
+				<img src={facebookLogo} alt="facebook" />
+				<img src={instagramLogo} alt="instagram" />
+				<img src={tiktokLogo} alt="tiktok" />
+			</LogoContainer>
 		</div>
 	</FooterStyled>
 )

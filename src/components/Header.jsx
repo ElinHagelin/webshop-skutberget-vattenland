@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import shoppingCart from '../assets/Icons/shopping-cart-2-line.png'
+import shoppingCart from '../assets/icons/shopping-cart-2-line.png'
 import headerBackground from '../assets/images/header-background-medium.jpg'
 
 const HeaderStyle = styled.header`
