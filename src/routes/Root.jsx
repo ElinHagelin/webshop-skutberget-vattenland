@@ -15,6 +15,8 @@ const Body = styled.div`
 const Main = styled.main`
   flex-grow: 1;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   `
 
 function Root() {

@@ -84,7 +84,7 @@ const Products = () => {
 			</SortSelect>
 			<ProductGrid>
 				{productsToShow.map(({ productid, name, price, picture }) => (
-					<ProductCard key={productid} name={name} price={price} img={picture} />
+					<ProductCard key={productid} name={name} price={price} img={picture} id={productid} />
 				))}
 			</ProductGrid>
 		</MainContainer>

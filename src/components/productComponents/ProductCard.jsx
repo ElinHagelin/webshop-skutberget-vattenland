@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 
 const Card = styled.div`
@@ -41,11 +42,11 @@ const CardPrice = styled.p`
 	font-size: 1.2em;
 `
 
-const ProductCard = ({ name, price, img }) => (
+const ProductCard = ({ name, price, img, id }) => (
 	<Card>
 		<CardImg src={img[0]} alt={name} />
 		<CardContentContainer>
-			<h3>{name}</h3>
+			<h3><Link to={'/details/' + id}>{name}</Link></h3>
 			<CardPrice>{price}:-</CardPrice>
 		</CardContentContainer>
 	</Card>
