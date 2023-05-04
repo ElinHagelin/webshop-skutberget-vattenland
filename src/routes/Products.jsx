@@ -12,9 +12,10 @@ const MainContainer = styled.main`
 	flex-direction: column;
 	padding: 2em 0;
 
-	@media (min-width: 770px) {
+	@media (min-width: 400px) {
 		padding: 2em 3em;
 	}
+	
 	@media (min-width: 1000px) {
 		padding: 2em 5em;
 	}
@@ -38,12 +39,11 @@ const SearchInput = styled.input`
 
 const ProductGrid = styled.div`
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
 	padding: 1em 0;
 
 	@media (min-width: 400px) {
     	gap: 1em;
-		grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   	}
 	@media (min-width: 770px) {
 		grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));

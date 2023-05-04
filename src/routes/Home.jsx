@@ -12,24 +12,56 @@ const HeroContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 3em;
+	gap: 15rem;
+	width: 100%;
+    flex-grow: 1;
+
+
+	@media (min-width: 553px) {
+		gap: 17rem;
+	}
+	@media (min-width: 620px) {
+		gap: 22rem;
+	}
+	@media (min-width: 1100px) {
+		align-items: flex-start;
+		justify-content: center;
+		padding-left: 3rem;
+		gap: 5rem;
+	}
 `
 
 const HeroHeading = styled.h1`
 	margin: 2rem 0 0 0;
 	font-size: 1.4em;
 
-@media (min-width: 770px) {
-		margin: 8rem 0 0 5rem;
+	@media (min-width: 770px) {
+		font-size: 1.6em;
+	}
+	@media (min-width: 1100px) {
+		margin: 0 0 0 2rem;
+		font-size: 1.9em;
+	}
+	@media (min-width: 1500px) {
+		margin: 0 0 0 6rem;
+		font-size: 2.1em;
 	}
 `
 
 const HeroSubHeading = styled.h2`
 	font-size: 1.2em;
-	margin-top: 17rem;
 	text-align: center;
+	
 	@media (min-width: 770px) {
-		margin: 0 0 0 5rem;
+		font-size: 1.3em;
+	}
+	@media (min-width: 1100px) {
+		font-size: 1.4em;
+		margin-left: 4rem;
+	}
+	@media (min-width: 1500px) {
+		font-size: 1.6em;
+		margin-left: 8rem;
 	}
 `
 
