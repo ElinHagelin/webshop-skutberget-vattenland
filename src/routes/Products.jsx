@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import ProductCard from "../components/productComponents/ProductCard";
 import testData from "../data/testdata";
+import productSorting from "../utils/productSorting";
+import productMatch from "../utils/searchFunctions";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { productsAtom } from "../data/atoms/productsAtom";
 
 
 const ProductGrid = styled.div`
@@ -23,25 +27,30 @@ const ProductGrid = styled.div`
   }
 `
 
-function stringIncludes(longString, shortString) {
-	let ls = longString.toLowerCase()
-	let ss = shortString.toLowerCase()
-	return ls.includes(ss)
-}
-function productMatch(product, searchString) {
-	if (stringIncludes(product.name, searchString)) {
-		return true
-	} else {
-		return false
-	}
-}
+// function stringIncludes(longString, shortString) {
+// 	let ls = longString.toLowerCase()
+// 	let ss = shortString.toLowerCase()
+// 	return ls.includes(ss)
+// }
+// function productMatch(product, searchString) {
+// 	if (stringIncludes(product.name, searchString)) {
+// 		return true
+// 	} else {
+// 		return false
+// 	}
+// }
 
 const Products = () => {
-	const [matches, setMatches] = useState(testData)
+	const [productsToShow, setProductsToShow] = useRecoilState(productsAtom)
 
-	const handleChange = event => {
+	const handleSearchChange = event => {
 		let searchString = event.target.value
-		setMatches(testData.filter(product => productMatch(product, searchString)))
+		setProductsToShow(testData.filter(product => productMatch(product, searchString)))
+	}
+
+	const handleSortingChange = event => {
+		console.log(event.target.value);
+		productSorting(event.target.value, productsToShow, setProductsToShow)
 	}
 
 	return (
@@ -50,9 +59,16 @@ const Products = () => {
 			<input
 				type="text"
 				placeholder="Sök efter produkt.."
-				onChange={handleChange} />
+				onChange={handleSearchChange} />
+			<select name="sort" id="sort-select" onClick={handleSortingChange}>
+				<option value="popular">Mest populära</option>
+				<option value="alpha-rising" >A till Ö</option>
+				<option value="alpha-falling">Ö till A</option>
+				<option value="price-rising">Lägst pris</option>
+				<option value="price-falling">Högst pris</option>
+			</select>
 			<ProductGrid>
-				{matches.map(({ productid, name, price, picture }) => (
+				{productsToShow.map(({ productid, name, price, picture }) => (
 					<ProductCard key={productid} name={name} price={price} img={picture} />
 				))}
 			</ProductGrid>
