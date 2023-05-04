@@ -22,8 +22,8 @@ const Header = () => {
 				Webshop
 			</h1>
 			<NavBar>
-				{/* <NavLink to='/'>Produkter</NavLink> */}
-				<p>Produkter</p>
+				<NavLink to='/products'>Produkter</NavLink>
+				{/* <p>Produkter</p> */}
 				<p>Kundvagn</p>
 			</NavBar>
 		</HeaderStyle>

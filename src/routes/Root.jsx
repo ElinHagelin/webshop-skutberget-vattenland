@@ -11,7 +11,8 @@ function Root() {
   return (
     <>
       <Header />
-      <Products />
+      <Outlet />
+      {/* <Products /> */}
       <Footer />
     </>
   )

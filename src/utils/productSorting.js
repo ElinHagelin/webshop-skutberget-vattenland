@@ -1,8 +1,6 @@
-import { useRecoilState } from "recoil";
-import { productsAtom } from "../data/atoms/productsAtom";
+
 
 const productSorting = (order, productsToShow, setProductsToShow) => {
-	// const [productsToShow, setProductsToShow] = useRecoilState(productsAtom)
 
 	if (order == 'popular') {
 		return
