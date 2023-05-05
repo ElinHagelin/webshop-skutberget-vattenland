@@ -14,6 +14,12 @@ const CartStyled = styled.div`
 	min-width: 15rem;
 `
 
+const ProductInCart = styled.div`
+	display: flex;
+	flex-direction: column;
+	margin: 0.5em 0;
+`
+
 const Cart = () => {
 	const [cart, setCart] = useRecoilState(cartAtom)
 	const [showCart, setShowCart] = useRecoilState(showCartAtom)
@@ -29,11 +35,12 @@ const Cart = () => {
 		return (
 			<CartStyled>
 				<h3>Kundvagn</h3>
-				{cart ? cart.map(product => <div key={product.productid}>
-					<Link to={'/details/' + product.productid}>{product.name}</Link>
-					<p>Antal: {product.amount}</p>
-					<p>{product.price}:-</p>
-				</div>)
+				{cart ? cart.map(product =>
+					<ProductInCart key={product.productid}>
+						<Link to={'/details/' + product.productid}>{product.name}</Link>
+						<p>Antal: {product.amount}</p>
+						<p>{product.price * product.amount}:-</p>
+					</ProductInCart>)
 					:
 					<div><p>Inga produkter..</p></div>}
 				{<p>Totalt: {totalPrice}:-</p>}
