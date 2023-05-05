@@ -1,5 +1,8 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
+import addToCart from "../../utils/addToCart"
+import { useRecoilState } from "recoil"
+import { cartAtom } from "../../data/atoms/cartAtom"
 
 
 const Card = styled.div`
@@ -35,6 +38,11 @@ const CardContentContainer = styled.div`
 	flex-grow: 1;
 `
 
+const CardHeading = styled(Link)`
+	color: black;
+	text-decoration: none;
+`
+
 const CardPrice = styled.p`
 	align-self: flex-end;
 	margin-top: 0.5em;
@@ -42,14 +50,33 @@ const CardPrice = styled.p`
 	font-size: 1.2em;
 `
 
-const ProductCard = ({ name, price, img, id }) => (
-	<Card>
-		<CardImg src={img[0]} alt={name} />
-		<CardContentContainer>
-			<h3><Link to={'/details/' + id}>{name}</Link></h3>
-			<CardPrice>{price}:-</CardPrice>
-		</CardContentContainer>
-	</Card>
-)
+export const AddButton = styled.button`
+	max-width: fit-content;
+	padding: 0.3em 0.8em;
+	align-self: center;
+	border-radius: 0.5em;
+	background-color: #A7CBD2;
+	border: 1px solid #90bcc4;
+	box-shadow: 0.3em 0.3em 1em lightgray;
+
+	&:hover {
+		background-color: #89bdc7;
+		border: 1px solid #7eb0b9;
+	}
+`
+
+const ProductCard = ({ product }) => {
+	const [cart, setCart] = useRecoilState(cartAtom)
+	return (
+		<Card>
+			<CardImg src={product.picture[0]} alt={product.name} />
+			<CardContentContainer>
+				<CardHeading to={'/details/' + product.productid}>{product.name}</CardHeading>
+				<CardPrice>{product.price}:-</CardPrice>
+				<AddButton onClick={() => addToCart(product, cart, setCart)}>Lägg till</AddButton>
+			</CardContentContainer>
+		</Card>
+	)
+}
 
 export default ProductCard

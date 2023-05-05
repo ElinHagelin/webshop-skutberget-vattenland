@@ -1,6 +1,10 @@
 import { useParams, useLoaderData, Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import backIcon from '../assets/icons/arrow-go-back-line.png'
+import addButton from '../components/productComponents/ProductCard'
+import AddToCart from '../utils/addToCart'
+import { useRecoilState } from 'recoil'
+import { cartAtom } from '../data/atoms/cartAtom'
 
 const ProductImg = styled.img`
 	height: 20em;
@@ -23,6 +27,7 @@ const ProductImgContainer = styled.div`
 `
 
 const ProductDetails = () => {
+	const [cart, setCart] = useRecoilState(cartAtom)
 
 	// id kommer från URL:  /details/:id
 	// vi återanvänder loader-funktionen från Products.jsx
@@ -49,13 +54,13 @@ const ProductDetails = () => {
 			<Link to="/products"><img src={backIcon} alt="Tillbaka" /> </Link>
 			<ProductImgContainer>
 				{product.picture.map(img => (
-					<ProductImg src={img} alt={product.name}></ProductImg>
+					<ProductImg key={img} src={img} alt={product.name}></ProductImg>
 				))}
 			</ProductImgContainer>
 			<h2> {product.name} </h2>
 			<p> {product.price} </p>
 			<p> {product.description} </p>
-			<button>Lägg till i kundkorg</button>
+			<AddButton onClick={() => addToCart(product, cart, setCart)}>Lägg till i kundkorg</AddButton>
 
 		</section>
 	)

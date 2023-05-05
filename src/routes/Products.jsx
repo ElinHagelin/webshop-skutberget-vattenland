@@ -83,8 +83,8 @@ const Products = () => {
 				<option value="price-falling">Högst pris</option>
 			</SortSelect>
 			<ProductGrid>
-				{productsToShow.map(({ productid, name, price, picture }) => (
-					<ProductCard key={productid} name={name} price={price} img={picture} id={productid} />
+				{productsToShow.map(product => (
+					<ProductCard key={product.productid} product={product} />
 				))}
 			</ProductGrid>
 		</MainContainer>

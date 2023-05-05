@@ -2,6 +2,9 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import shoppingCart from '../assets/icons/shopping-cart-2-line.png'
 import headerBackground from '../assets/images/header-background-medium.jpg'
+import { useRecoilState } from 'recoil'
+import { showCartAtom } from '../data/atoms/showCartAtom'
+import Cart from './Cart'
 
 const HeaderStyled = styled.header`
 	padding: 1.5em 2em;
@@ -54,6 +57,13 @@ const CartButton = styled.button`
 // `
 
 const Header = () => {
+	const [showCart, setShowCart] = useRecoilState(showCartAtom)
+
+	const handleCartClick = () => {
+		setShowCart(!showCart)
+		console.log(showCart);
+	}
+
 	return (
 		<HeaderStyled>
 			<HeaderLogo>Skutberget Vattenland <br />
@@ -62,8 +72,11 @@ const Header = () => {
 			<NavBar>
 				<NavLink to='/'>Hem</NavLink>
 				<NavLink to='/products'>Produkter</NavLink>
-				<CartButton><img src={shoppingCart} alt="kundvagn" /></CartButton>
+				<CartButton><img src={shoppingCart} alt="kundvagn"
+					onClick={handleCartClick}
+				/></CartButton>
 			</NavBar>
+			<Cart />
 		</HeaderStyled>
 	)
 }
