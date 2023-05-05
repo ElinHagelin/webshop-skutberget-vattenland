@@ -1,5 +1,5 @@
-import { useRecoilState } from "recoil";
-import { cartAtom } from "../data/atoms/cartAtom";
+// import { useRecoilState } from "recoil";
+// import { cartAtom } from "../data/atoms/cartAtom";
 
 const addToCart = (product, cart, setCart) => {
 

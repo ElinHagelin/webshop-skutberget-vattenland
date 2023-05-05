@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
-import addToCart from "../../utils/addToCart"
+import addToCart from "../../utils/AddToCart"
 import { useRecoilState } from "recoil"
 import { cartAtom } from "../../data/atoms/cartAtom"
 
@@ -41,6 +41,7 @@ const CardContentContainer = styled.div`
 const CardHeading = styled(Link)`
 	color: black;
 	text-decoration: none;
+	/* font-size:2em; */
 `
 
 const CardPrice = styled.p`
@@ -67,16 +68,19 @@ export const AddButton = styled.button`
 
 const ProductCard = ({ product }) => {
 	const [cart, setCart] = useRecoilState(cartAtom)
-	return (
-		<Card>
-			<CardImg src={product.picture[0]} alt={product.name} />
-			<CardContentContainer>
-				<CardHeading to={'/details/' + product.productid}>{product.name}</CardHeading>
-				<CardPrice>{product.price}:-</CardPrice>
-				<AddButton onClick={() => addToCart(product, cart, setCart)}>Lägg till</AddButton>
-			</CardContentContainer>
-		</Card>
-	)
+	// console.log('product är: ', product);
+	if (product) {
+		return (
+			<Card>
+				<CardImg src={product.picture[0]} alt={product.name} />
+				<CardContentContainer>
+					<CardHeading to={'/details/' + product.productid}>{product.name}</CardHeading>
+					<CardPrice>{product.price}:-</CardPrice>
+					<AddButton onClick={() => addToCart(product, cart, setCart)}>Lägg till</AddButton>
+				</CardContentContainer>
+			</Card>
+		)
+	}
 }
 
 export default ProductCard

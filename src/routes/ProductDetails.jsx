@@ -1,29 +1,36 @@
 import { useParams, useLoaderData, Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import backIcon from '../assets/icons/arrow-go-back-line.png'
-import addButton from '../components/productComponents/ProductCard'
-import AddToCart from '../utils/addToCart'
+import { AddButton } from '../components/productComponents/ProductCard'
+import addToCart from '../utils/addToCart'
 import { useRecoilState } from 'recoil'
 import { cartAtom } from '../data/atoms/cartAtom'
 
+const ProductDetailsMain = styled.section`
+	display: flex;
+	flex-direction: column;
+`
+
 const ProductImg = styled.img`
-	height: 20em;
-	width: 20em;
+	max-height: 15em;
+	max-width: 15em;
 	object-fit: cover;
 
 	&:first-child {
-		height: 40em;
-		width: 40em;
+		max-height: 30em;
+		max-width: 30em;
+		grid-row: 1/ span 2;
 	}
-	&:last-child {
+	/* &:last-child {
 		align-self:flex-end;
-	}
+	} */
 `
 
 const ProductImgContainer = styled.div`
-	display: flex;
-	
-
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	/* max-width: fit-content; */
 `
 
 const ProductDetails = () => {
@@ -38,6 +45,7 @@ const ProductDetails = () => {
 	console.log('allProducts är: ', allProducts);
 	console.log('id är: ', id);
 	const product = allProducts.find(p => String(p.productid) === id)
+	console.log('Produkten i ProductDetails är: ', product);
 
 	if (!product) {
 		return (
@@ -50,7 +58,7 @@ const ProductDetails = () => {
 	}
 
 	return (
-		<section>
+		<ProductDetailsMain>
 			<Link to="/products"><img src={backIcon} alt="Tillbaka" /> </Link>
 			<ProductImgContainer>
 				{product.picture.map(img => (
@@ -62,7 +70,7 @@ const ProductDetails = () => {
 			<p> {product.description} </p>
 			<AddButton onClick={() => addToCart(product, cart, setCart)}>Lägg till i kundkorg</AddButton>
 
-		</section>
+		</ProductDetailsMain>
 	)
 }
 
