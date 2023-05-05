@@ -8,6 +8,7 @@ const CartStyled = styled.div`
 	top: 7.6em;
 	right: 0;
 	border: 1px solid black;
+	background-color: #b6b5b5;
 `
 
 const Cart = () => {
@@ -18,7 +19,7 @@ const Cart = () => {
 		return (
 			<CartStyled>
 				<h3>Kundvagn</h3>
-				{cart ? cart.map(product => <div key={product.productid}><p>{product.name}</p></div>) : <div><p>Inga produkter..</p></div>}
+				{cart ? cart.map(product => <div key={product.productid}><p>{product.name}</p><p>Antal: {product.amount}</p></div>) : <div><p>Inga produkter..</p></div>}
 			</CartStyled>
 		)
 	} else {
