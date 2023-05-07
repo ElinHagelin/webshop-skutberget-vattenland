@@ -1,3 +1,5 @@
+import { useRecoilState } from "recoil"
+import { loginOverlayAtom } from "../data/atoms/loginOverlay"
 import styled from "styled-components"
 import facebookLogo from '../assets/icons/facebook-circle-fill.png'
 import instagramLogo from '../assets/icons/instagram-fill.png'
@@ -60,31 +62,38 @@ const AdminLogin = styled.button`
 `
 
 
-const Footer = () => (
-	<FooterStyled>
-		<div>
-			<FooterHeading>Öppettider Parken</FooterHeading>
-			<Paragraph>Måndag - Fredag 10-19</Paragraph>
-			<Paragraph>Lördag 10-20</Paragraph>
-			<Paragraph>Söndag 10-18</Paragraph>
-		</div>
-		<div>
-			<FooterHeading>Kontakta oss</FooterHeading>
-			<Paragraph>info@skutbergetvattenland.se</Paragraph>
-		</div>
-		<div>
-			<FooterHeadingLogo>Följ oss på sociala medier</FooterHeadingLogo>
-			<LogoContainer>
-				<Logo src={facebookLogo} alt="facebook" />
-				<Logo src={instagramLogo} alt="instagram" />
-				<Logo src={tiktokLogo} alt="tiktok" />
-			</LogoContainer>
-		</div>
-		<AdminLogin>
-			<Paragraph>Admin <span><img src={loginIcon} alt="login" /></span></Paragraph>
-		</AdminLogin>
-	</FooterStyled>
-)
+const Footer = () => {
+	const [showLogin, setShowLogin] = useRecoilState(loginOverlayAtom)
+
+	return (
+		<FooterStyled>
+			<div>
+				<FooterHeading>Öppettider Parken</FooterHeading>
+				<Paragraph>Måndag - Fredag 10-19</Paragraph>
+				<Paragraph>Lördag 10-20</Paragraph>
+				<Paragraph>Söndag 10-18</Paragraph>
+			</div>
+			<div>
+				<FooterHeading>Kontakta oss</FooterHeading>
+				<Paragraph>info@skutbergetvattenland.se</Paragraph>
+			</div>
+			<div>
+				<FooterHeadingLogo>Följ oss på sociala medier</FooterHeadingLogo>
+				<LogoContainer>
+					<Logo src={facebookLogo} alt="facebook" />
+					<Logo src={instagramLogo} alt="instagram" />
+					<Logo src={tiktokLogo} alt="tiktok" />
+				</LogoContainer>
+			</div>
+			<AdminLogin onClick={() => {
+				setShowLogin(!showLogin)
+				console.log(showLogin);
+			}}>
+				<Paragraph>Admin <span><img src={loginIcon} alt="login" /></span></Paragraph>
+			</AdminLogin>
+		</FooterStyled>
+	)
+}
 
 
 

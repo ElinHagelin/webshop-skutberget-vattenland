@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Products from './Products'
 import styled from 'styled-components'
+import AdminLogin from '../components/AdminLogin'
 // import './App.css'
 
 const Body = styled.div`
@@ -20,15 +21,13 @@ const Main = styled.main`
   `
 
 function Root() {
-  const [count, setCount] = useState(0)
-
   return (
     <Body>
       <Header />
       <Main>
         <Outlet />
       </Main>
-      {/* <Products /> */}
+      <AdminLogin />
       <Footer />
     </Body>
   )
