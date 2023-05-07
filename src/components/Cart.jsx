@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { cartAtom } from "../data/atoms/cartAtom";
 import { showCartAtom } from "../data/atoms/showCartAtom";
 import styled from "styled-components";
+import addToCart from "../utils/AddToCart";
+import removeFromCart from "../utils/removeFromCart";
 
 const CartStyled = styled.div`
 	position: absolute;
@@ -38,7 +40,7 @@ const Cart = () => {
 				{cart ? cart.map(product =>
 					<ProductInCart key={product.productid}>
 						<Link to={'/details/' + product.productid}>{product.name}</Link>
-						<p>Antal: {product.amount}</p>
+						<p>Antal: <span><button onClick={() => addToCart(product, cart, setCart)}>+</button></span> {product.amount} <span><button onClick={() => removeFromCart(product, cart, setCart)}>-</button></span></p>
 						<p>{product.price * product.amount}:-</p>
 					</ProductInCart>)
 					:
