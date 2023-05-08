@@ -1,10 +1,11 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import shoppingCart from '../assets/icons/shopping-cart-2-line.png'
 import headerBackground from '../assets/images/header-background-medium.jpg'
 import { useRecoilState } from 'recoil'
 import { showCartAtom } from '../data/atoms/showCartAtom'
 import Cart from './Cart'
+import { loggedInAtom } from '../data/atoms/loggedInAtom'
 
 const HeaderStyled = styled.header`
 	padding: 1.5em 2em;
@@ -58,10 +59,17 @@ const CartButton = styled.button`
 
 const Header = () => {
 	const [showCart, setShowCart] = useRecoilState(showCartAtom)
+	const [loggedIn, setLoggedIn] = useRecoilState(loggedInAtom)
+	const navigate = useNavigate()
 
 	const handleCartClick = () => {
 		setShowCart(!showCart)
 		console.log(showCart);
+	}
+
+	const handleLogout = () => {
+		setLoggedIn(false)
+		navigate('/')
 	}
 
 	return (

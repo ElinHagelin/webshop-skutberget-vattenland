@@ -5,6 +5,8 @@ import Footer from '../components/Footer'
 import Products from './Products'
 import styled from 'styled-components'
 import AdminLogin from '../components/AdminLogin'
+import { useRecoilState } from 'recoil'
+import { loggedInAtom } from '../data/atoms/loggedInAtom'
 // import './App.css'
 
 const Body = styled.div`
@@ -21,6 +23,8 @@ const Main = styled.main`
   `
 
 function Root() {
+  const [loggedIn] = useRecoilState(loggedInAtom)
+
   return (
     <Body>
       <Header />

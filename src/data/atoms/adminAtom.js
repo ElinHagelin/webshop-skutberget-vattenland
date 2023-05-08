@@ -4,8 +4,8 @@ const adminAtom = atom({
 	key: 'admin-list',
 	default: [
 		{
-			employeeNumber: 0000,
-			password: 0000
+			employeeNumber: 1234,
+			password: 1234
 		}
 	]
 })

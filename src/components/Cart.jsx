@@ -14,6 +14,7 @@ const CartStyled = styled.div`
 	background-color: #b6b5b5;
 	padding: 1rem;
 	min-width: 15rem;
+	z-index: 1;
 `
 
 const ProductInCart = styled.div`

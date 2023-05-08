@@ -4,6 +4,7 @@ import Products from './routes/Products.jsx'
 import ProductDetails from './routes/ProductDetails.jsx'
 import Home from './routes/Home.jsx'
 import productLoader from './utils/ajax.js'
+import AdminPage from './routes/Admin.jsx'
 
 const router = createHashRouter([
 	{
@@ -22,6 +23,11 @@ const router = createHashRouter([
 			{
 				path: 'details/:id',
 				element: <ProductDetails />,
+				loader: productLoader
+			},
+			{
+				path: 'admin',
+				element: <AdminPage />,
 				loader: productLoader
 			}
 		]

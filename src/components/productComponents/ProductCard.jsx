@@ -10,6 +10,7 @@ const Card = styled.div`
 	border-radius:1em;
 	display: flex;
 	flex-direction:column;
+	/* max-height: 30em; */
 	
 	@media (min-width: 400px) {
 		box-shadow: 0.3em 0.3em 1em lightgray;

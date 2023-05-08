@@ -5,6 +5,9 @@ import facebookLogo from '../assets/icons/facebook-circle-fill.png'
 import instagramLogo from '../assets/icons/instagram-fill.png'
 import tiktokLogo from '../assets/icons/tiktok-fill.png'
 import loginIcon from '../assets/icons/login-box-line.png'
+import logoutIcon from '../assets/icons/logout-box-line.png'
+import { loggedInAtom } from "../data/atoms/loggedInAtom"
+import { useNavigate } from "react-router-dom"
 
 
 const FooterStyled = styled.footer`
@@ -64,6 +67,8 @@ const AdminLogin = styled.button`
 
 const Footer = () => {
 	const [showLogin, setShowLogin] = useRecoilState(loginOverlayAtom)
+	const [loggedIn, setLoggedIn] = useRecoilState(loggedInAtom)
+	const navigate = useNavigate()
 
 	return (
 		<FooterStyled>
@@ -86,10 +91,17 @@ const Footer = () => {
 				</LogoContainer>
 			</div>
 			<AdminLogin onClick={() => {
-				setShowLogin(!showLogin)
-				console.log(showLogin);
+				if (!loggedIn) {
+					setShowLogin(!showLogin)
+				} else {
+					setLoggedIn(false)
+					navigate('/')
+				}
 			}}>
-				<Paragraph>Admin <span><img src={loginIcon} alt="login" /></span></Paragraph>
+				{!loggedIn ?
+					<Paragraph>Admin <span><img src={loginIcon} alt="login" /></span></Paragraph>
+					: <Paragraph>Logga ut <span><img src={logoutIcon} alt="logout" /></span></Paragraph>
+				}
 			</AdminLogin>
 		</FooterStyled>
 	)
