@@ -23,7 +23,6 @@ const Main = styled.main`
   `
 
 function Root() {
-  const [loggedIn] = useRecoilState(loggedInAtom)
 
   return (
     <Body>
