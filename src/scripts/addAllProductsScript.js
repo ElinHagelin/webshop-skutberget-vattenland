@@ -1,7 +1,7 @@
-import { uploadProduct } from "../utils/ajax";
-import testData from "../data/testdata";
+import { uploadProduct } from "../utils/ajax.js";
+import testData from "../data/testdata.js";
 
-testData.map(({ name, description, price, productid, picture }) =>
+testData.forEach(({ name, description, price, productid, picture }) =>
 	uploadProduct(name, description, price, productid, picture)
 )
 

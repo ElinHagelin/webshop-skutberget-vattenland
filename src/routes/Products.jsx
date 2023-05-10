@@ -1,10 +1,13 @@
+import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import ProductCard from "../components/productComponents/ProductCard";
-import testData from "../data/testdata";
+// import testData from "../data/testdata";
 import productSorting from "../utils/productSorting";
 import productMatch from "../utils/searchFunctions";
 import { useRecoilState } from "recoil";
 import { productsAtom } from "../data/atoms/productsAtom";
+import { getProducts } from "../utils/ajax";
 
 
 const MainContainer = styled.main`
@@ -56,16 +59,32 @@ const ProductGrid = styled.div`
 
 
 const Products = () => {
-	const [productsToShow, setProductsToShow] = useRecoilState(productsAtom)
+	const [products, setProducts] = useRecoilState(productsAtom)
+	const [productsToShow, setProductsToShow] = useState([...products])
+
+	// console.log('products är: ', products);
+
+	// const productsFromApi = useLoaderData()
+	// useEffect(() => {
+	// 	async function fetchProducts() {
+	// 		const productsFromAPI = await getProducts()
+	// 		setProducts(productsFromAPI)
+	// 		console.log('productsFromAPI är: ', productsFromAPI);
+	// 	}
+	// 	fetchProducts()
+	// }, [])
 
 	const handleSearchChange = event => {
-		let searchString = event.target.value
-		setProductsToShow(testData.filter(product => productMatch(product, searchString)))
+		if (!event.target.value) {
+			setProductsToShow(products)
+		} else {
+			let searchString = event.target.value
+			setProductsToShow(productsToShow.filter(product => productMatch(product, searchString)))
+		}
 	}
 
 	const handleSortingChange = event => {
-		console.log(event.target.value);
-		productSorting(event.target.value, productsToShow, setProductsToShow)
+		productSorting(event.target.value, productsToShow, setProductsToShow, products)
 	}
 
 	return (
@@ -82,15 +101,18 @@ const Products = () => {
 				<option value="price-rising">Lägst pris</option>
 				<option value="price-falling">Högst pris</option>
 			</SortSelect>
-			<ProductGrid>
-				{productsToShow.map(product => (
-					<ProductCard key={product.productid} product={product} />
-				))}
-			</ProductGrid>
+			{products
+				? <ProductGrid>
+
+					{productsToShow.map(product => (
+						<ProductCard key={product.productid} product={product} />
+					))}
+
+				</ProductGrid>
+				: <p>Please wait, loading products...</p>}
 		</MainContainer>
 	)
 }
-
 
 
 export default Products

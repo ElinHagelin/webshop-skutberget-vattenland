@@ -1,3 +1,3 @@
 
 
-export const adminCode = 0000
+export const shopId = 1006

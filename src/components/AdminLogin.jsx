@@ -24,7 +24,7 @@ const LoginHeading = styled.h3`
 	margin: 0.5em 0;
 `
 
-const InputGroup = styled.div`
+export const InputGroup = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin: 0.5em 0;

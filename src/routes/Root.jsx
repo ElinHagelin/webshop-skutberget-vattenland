@@ -1,13 +1,13 @@
-import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
+import { useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import Products from './Products'
 import styled from 'styled-components'
 import AdminLogin from '../components/AdminLogin'
-import { useRecoilState } from 'recoil'
-import { loggedInAtom } from '../data/atoms/loggedInAtom'
-// import './App.css'
+import { productsAtom } from '../data/atoms/productsAtom'
+import { getProducts } from '../utils/ajax'
+
 
 const Body = styled.div`
   display: flex;
@@ -23,6 +23,18 @@ const Main = styled.main`
   `
 
 function Root() {
+
+  const [products, setProducts] = useRecoilState(productsAtom)
+
+  // const productsFromApi = useLoaderData()
+  useEffect(() => {
+    async function fetchProducts() {
+      const productsFromAPI = await getProducts()
+      setProducts(productsFromAPI)
+      console.log('productsFromAPI är: ', productsFromAPI);
+    }
+    fetchProducts()
+  }, [])
 
   return (
     <Body>

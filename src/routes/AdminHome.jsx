@@ -16,8 +16,8 @@ const AdminHome = () => {
 		return (
 			<main>
 				<AdminHeading>Välkommen Admin</AdminHeading>
-				<p>Du kan nu komma åt att redigera produktlistan <NavLink to='admin/products'>här!</NavLink></p>
-				<p>Vill du lägga till eller ta bort admins kan du klicka <NavLink to='admin/users'>här!</NavLink></p>
+				<p>Du kan nu komma åt att redigera produktlistan <NavLink to='/products'>här!</NavLink></p>
+				<p>Vill du lägga till eller ta bort admins kan du klicka <NavLink to='/users'>här!</NavLink></p>
 			</main>
 		)
 	}

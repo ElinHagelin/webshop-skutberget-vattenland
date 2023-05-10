@@ -5,7 +5,7 @@ const addToCart = (product, cart, setCart) => {
 
 	const copy = [...cart]
 	const check = copy.find(item => item.productid === product.productid)
-	console.log(check);
+	// console.log(check);
 	if (!check) {
 		let modifiedProduct = { ...product, amount: 1 }
 		setCart([...cart, modifiedProduct])

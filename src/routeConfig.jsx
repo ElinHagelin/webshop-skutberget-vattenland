@@ -4,6 +4,7 @@ import Products from './routes/Products.jsx'
 import ProductDetails from './routes/ProductDetails.jsx'
 import Home from './routes/Home.jsx'
 import productLoader from './utils/ajax.js'
+import CartPage from './routes/CartPage.jsx'
 import AdminPage from './routes/Admin.jsx'
 import AdminHome from './routes/AdminHome.jsx'
 import AdminProducts from './routes/AdminProducts.jsx'
@@ -13,6 +14,7 @@ const router = createHashRouter([
 	{
 		path: '/',
 		element: <Root />,
+		// loader: productLoader,
 		children: [
 			{
 				path: '',
@@ -21,17 +23,21 @@ const router = createHashRouter([
 			{
 				path: 'products',
 				element: <Products />,
-				loader: productLoader
+				// loader: productLoader
 			},
 			{
 				path: 'details/:id',
 				element: <ProductDetails />,
-				loader: productLoader
+				// loader: productLoader
+			},
+			{
+				path: '/cart',
+				element: <CartPage />,
 			},
 			{
 				path: 'admin',
 				element: <AdminPage />,
-				loader: productLoader,
+				// loader: productLoader,
 				children: [
 					{
 						path: '',
@@ -46,6 +52,10 @@ const router = createHashRouter([
 						element: <AdminUsers />
 					}
 				]
+			},
+			{
+				path: '*',
+				element: <Home />
 			}
 		]
 	}

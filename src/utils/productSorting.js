@@ -2,10 +2,11 @@ import { productsAtom } from "../data/atoms/productsAtom";
 import testData from "../data/testdata";
 
 
-const productSorting = (order, productsToShow, setProductsToShow) => {
+const productSorting = (order, productsToShow, setProductsToShow, products) => {
 
 	if (order == 'popular') {
-		setProductsToShow(testData)
+		console.log('products i productsSorting är: ', products);
+		setProductsToShow(products)
 	} else {
 		let valueToCompare = order == 'alpha-rising' || order == 'alpha-falling' ? 'name' : 'price'
 

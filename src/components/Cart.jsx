@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { cartAtom } from "../data/atoms/cartAtom";
 import { showCartAtom } from "../data/atoms/showCartAtom";
 import styled from "styled-components";
@@ -47,6 +47,7 @@ const Cart = () => {
 					:
 					<div><p>Inga produkter..</p></div>}
 				{<p>Totalt: {totalPrice}:-</p>}
+				<button><NavLink to={'/cart'}>Gå till kundvagen</NavLink></button>
 			</CartStyled>
 		)
 	} else {

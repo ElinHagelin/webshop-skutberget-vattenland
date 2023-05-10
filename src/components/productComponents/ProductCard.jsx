@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil"
 import { cartAtom } from "../../data/atoms/cartAtom"
 import { loggedInAtom } from "../../data/atoms/loggedInAtom"
 import deleteBin from '../../assets/icons/delete-bin-line.png'
+import { deleteProduct } from "../../utils/ajax"
 
 
 const Card = styled.div`
@@ -86,6 +87,8 @@ const ProductCard = ({ product }) => {
 	const [cart, setCart] = useRecoilState(cartAtom)
 	const [loggedIn] = useRecoilState(loggedInAtom)
 
+	// console.log(product.picture[0]);
+
 	if (product) {
 		return (
 			<Card>
@@ -95,7 +98,7 @@ const ProductCard = ({ product }) => {
 					<CardPrice>{product.price}:-</CardPrice>
 					{!loggedIn
 						? <AddButton onClick={() => addToCart(product, cart, setCart)}>Lägg till</AddButton>
-						: <DeleteButton> <img src={deleteBin} alt="Ta bort" /> </DeleteButton>
+						: <DeleteButton onClick={() => deleteProduct(product.productid)}> <img src={deleteBin} alt="Ta bort" /> </DeleteButton>
 					}
 				</CardContentContainer>
 			</Card>
