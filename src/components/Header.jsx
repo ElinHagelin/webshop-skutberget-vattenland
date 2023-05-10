@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil'
 import { showCartAtom } from '../data/atoms/showCartAtom'
 import Cart from './Cart'
 import { loggedInAtom } from '../data/atoms/loggedInAtom'
+import logoutIcon from '../assets/icons/logout-box-line.png'
 
 const HeaderStyled = styled.header`
 	padding: 1.5em 2em;
@@ -43,7 +44,7 @@ const NavBar = styled.nav`
 	position: relative;
 `
 
-const CartButton = styled.button`
+const HeaderButton = styled.button`
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
@@ -77,13 +78,23 @@ const Header = () => {
 			<HeaderLogo>Skutberget Vattenland <br />
 				Webshop
 			</HeaderLogo>
-			<NavBar>
-				<NavLink to='/'>Hem</NavLink>
-				<NavLink to='/products'>Produkter</NavLink>
-				<CartButton><img src={shoppingCart} alt="kundvagn"
-					onClick={handleCartClick}
-				/></CartButton>
-			</NavBar>
+			{/* <NavBar> */}
+			{!loggedIn
+				? <NavBar>
+					<NavLink to='/'>Hem</NavLink>
+					<NavLink to='/products'>Produkter</NavLink>
+					<HeaderButton><img src={shoppingCart} alt="kundvagn"
+						onClick={handleCartClick}
+					/></HeaderButton>
+				</NavBar>
+				: <NavBar>
+					<NavLink to='admin/users'>Admins</NavLink>
+					<NavLink to='admin/products'>Produkter</NavLink>
+					<HeaderButton onClick={handleLogout}>Logga ut <img src={logoutIcon} alt="Logga ut" /></HeaderButton>
+				</NavBar>
+			}
+
+			{/* </NavBar> */}
 			<Cart />
 		</HeaderStyled>
 	)

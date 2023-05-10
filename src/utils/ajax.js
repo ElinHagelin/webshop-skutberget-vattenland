@@ -1,8 +1,8 @@
 import testData from "../data/testdata";
 
 
-// const productLoader = () => testData
-const productLoader = () => getProducts()
+const productLoader = () => testData
+// const productLoader = () => getProducts()
 
 export async function uploadProduct(name, description, price, productid, picture) {
 	const data = {

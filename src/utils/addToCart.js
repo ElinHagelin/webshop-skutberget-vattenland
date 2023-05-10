@@ -1,5 +1,3 @@
-// import { useRecoilState } from "recoil";
-// import { cartAtom } from "../data/atoms/cartAtom";
 
 const addToCart = (product, cart, setCart) => {
 
@@ -10,15 +8,15 @@ const addToCart = (product, cart, setCart) => {
 	console.log(check);
 	if (!check) {
 		let modifiedProduct = { ...product, amount: 1 }
-		console.log('Produkten finns inte i kundvagnen: ', modifiedProduct);
 		setCart([...cart, modifiedProduct])
+
 	} else {
 		let modifiedProduct = { ...check }
 		modifiedProduct.amount = modifiedProduct.amount + 1
-		console.log('copy är: ', copy);
+
 		const productIndex = copy.findIndex(x => x.productid == check.productid)
 		const upDatedCart = copy.splice(productIndex, 1, modifiedProduct)
-		console.log('Nya copy är: ', copy);
+
 		setCart(copy)
 	}
 }

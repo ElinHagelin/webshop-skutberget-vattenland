@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import addToCart from "../../utils/AddToCart"
 import { useRecoilState } from "recoil"
 import { cartAtom } from "../../data/atoms/cartAtom"
+import { loggedInAtom } from "../../data/atoms/loggedInAtom"
+import deleteBin from '../../assets/icons/delete-bin-line.png'
 
 
 const Card = styled.div`
@@ -10,7 +12,6 @@ const Card = styled.div`
 	border-radius:1em;
 	display: flex;
 	flex-direction:column;
-	/* max-height: 30em; */
 	
 	@media (min-width: 400px) {
 		box-shadow: 0.3em 0.3em 1em lightgray;
@@ -42,7 +43,6 @@ const CardContentContainer = styled.div`
 const CardHeading = styled(Link)`
 	color: black;
 	text-decoration: none;
-	/* font-size:2em; */
 `
 
 const CardPrice = styled.p`
@@ -67,9 +67,25 @@ export const AddButton = styled.button`
 	}
 `
 
+const DeleteButton = styled.button`
+	max-width: fit-content;
+	padding: 0.3em 0.8em;
+	align-self: center;
+	border-radius: 0.5em;
+	background-color: #A7CBD2;
+	border: 1px solid #90bcc4;
+	box-shadow: 0.3em 0.3em 1em lightgray;
+
+	&:hover {
+		background-color: #89bdc7;
+		border: 1px solid #7eb0b9;
+	}
+`
+
 const ProductCard = ({ product }) => {
 	const [cart, setCart] = useRecoilState(cartAtom)
-	// console.log('product är: ', product);
+	const [loggedIn] = useRecoilState(loggedInAtom)
+
 	if (product) {
 		return (
 			<Card>
@@ -77,7 +93,10 @@ const ProductCard = ({ product }) => {
 				<CardContentContainer>
 					<CardHeading to={'/details/' + product.productid}>{product.name}</CardHeading>
 					<CardPrice>{product.price}:-</CardPrice>
-					<AddButton onClick={() => addToCart(product, cart, setCart)}>Lägg till</AddButton>
+					{!loggedIn
+						? <AddButton onClick={() => addToCart(product, cart, setCart)}>Lägg till</AddButton>
+						: <DeleteButton> <img src={deleteBin} alt="Ta bort" /> </DeleteButton>
+					}
 				</CardContentContainer>
 			</Card>
 		)

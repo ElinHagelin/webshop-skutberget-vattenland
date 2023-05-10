@@ -93,14 +93,14 @@ const Footer = () => {
 			<AdminLogin onClick={() => {
 				if (!loggedIn) {
 					setShowLogin(!showLogin)
-				} else {
-					setLoggedIn(false)
-					navigate('/')
 				}
+				// else {
+				// 	setLoggedIn(false)
+				// 	navigate('/')
+				// }
 			}}>
-				{!loggedIn ?
+				{!loggedIn &&
 					<Paragraph>Admin <span><img src={loginIcon} alt="login" /></span></Paragraph>
-					: <Paragraph>Logga ut <span><img src={logoutIcon} alt="logout" /></span></Paragraph>
 				}
 			</AdminLogin>
 		</FooterStyled>

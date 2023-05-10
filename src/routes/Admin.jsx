@@ -1,6 +1,10 @@
 import { useRecoilState } from "recoil"
-import { Navigate, useNavigate } from "react-router-dom"
+import { Navigate, useNavigate, NavLink } from "react-router-dom"
 import { loggedInAtom } from "../data/atoms/loggedInAtom"
+import { Outlet } from "react-router-dom"
+import styled from "styled-components"
+
+
 
 
 const AdminPage = () => {
@@ -17,10 +21,9 @@ const AdminPage = () => {
 	}
 	else if (loggedIn) {
 		return (
-			<div>
-				<button onClick={handleLogout}>Logga ut</button>
-				<h1>Admin</h1>
-			</div>
+			<main>
+				<Outlet />
+			</main>
 		)
 	}
 }
