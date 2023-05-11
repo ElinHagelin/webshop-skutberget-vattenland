@@ -35,9 +35,7 @@ const AddProductForm = () => {
 	const [productName, setProductName] = useState('')
 	const [productDescription, setProductDescription] = useState('')
 	const [productPrice, setProductPrice] = useState('')
-	const [productImg1, setProductImg1] = useState('')
-	const [productImg2, setProductImg2] = useState('')
-	const [productImg3, setProductImg3] = useState('')
+	const [productImg, setProductImg] = useState('')
 
 
 	inputList.map(input => {
@@ -50,16 +48,11 @@ const AddProductForm = () => {
 		} else if (input.inputId == 'product-price') {
 			input.state = productPrice
 			input.setState = setProductPrice
-		} else if (input.inputId == 'img-1') {
-			input.state = productImg1
-			input.setState = setProductImg1
-		} else if (input.inputId == 'img-2') {
-			input.state = productImg2
-			input.setState = setProductImg2
-		} else if (input.inputId == 'img-3') {
-			input.state = productImg3
-			input.setState = setProductImg3
+		} else if (input.inputId == 'img') {
+			input.state = productImg
+			input.setState = setProductImg
 		}
+
 	})
 
 	return (
@@ -90,57 +83,3 @@ const AddProductForm = () => {
 }
 
 export default AddProductForm
-
-{/* <InputGroup>
-	<label htmlFor="product-name">Namn på produkten</label>
-	<input
-		type="text"
-		id="product-name"
-		value={productName}
-		onChange={(e) => setProductName(e.target.value)}
-	/>
-</InputGroup>
-<InputGroup>
-	<label htmlFor="product-description">Beskrivning av produkten</label>
-	<textarea
-		id="product-description"
-		value={productDescription}
-		onChange={(e) => setProductDescription(e.target.value)}
-	/>
-</InputGroup>
-<InputGroup>
-	<label htmlFor="product-price">Pris</label>
-	<input
-		type="text"
-		id="product-price"
-		value={productPrice}
-		onChange={(e) => setProductPrice(e.target.value)}
-	/>
-</InputGroup>
-<InputGroup>
-	<label htmlFor="img-1">Bild 1 (url)</label>
-	<input
-		type="text"
-		id="img-1"
-		value={productImg1}
-		onChange={(e) => setProductImg1(e.target.value)}
-	/>
-</InputGroup>
-<InputGroup>
-	<label htmlFor="img-2">Bild 2 (url)</label>
-	<input
-		type="text"
-		id="img-2"
-		value={productImg2}
-		onChange={(e) => setProductImg2(e.target.value)}
-	/>
-</InputGroup>
-<InputGroup>
-	<label htmlFor="img-3">Bild 3 (url)</label>
-	<input
-		type="text"
-		id="img-3"
-		value={productImg3}
-		onChange={(e) => setProductImg3(e.target.value)}
-	/>
-</InputGroup> */}

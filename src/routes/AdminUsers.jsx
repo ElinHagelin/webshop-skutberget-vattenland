@@ -36,8 +36,8 @@ const AdminUsers = () => {
 					<h3>Befintliga Admins</h3>
 					{admins &&
 						admins.map(admin =>
-							<AdminContainer key={admin.employeeNumber}>
-								<p>Anställningsnummer: {admin.employeeNumber}</p>
+							<AdminContainer key={admin.username}>
+								<p>Användarnamn: {admin.username}</p>
 								<p>Lösenord: {admin.password}</p>
 								<button><img src={deleteBin} alt="Ta bort" /></button>
 							</AdminContainer>

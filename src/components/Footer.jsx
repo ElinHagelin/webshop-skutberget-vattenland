@@ -1,13 +1,11 @@
 import { useRecoilState } from "recoil"
-import { loginOverlayAtom } from "../data/atoms/loginOverlay"
 import styled from "styled-components"
 import facebookLogo from '../assets/icons/facebook-circle-fill.png'
 import instagramLogo from '../assets/icons/instagram-fill.png'
 import tiktokLogo from '../assets/icons/tiktok-fill.png'
 import loginIcon from '../assets/icons/login-box-line.png'
-import logoutIcon from '../assets/icons/logout-box-line.png'
 import { loggedInAtom } from "../data/atoms/loggedInAtom"
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 const FooterStyled = styled.footer`
@@ -62,13 +60,15 @@ const AdminLogin = styled.button`
 	right: 1rem;
 	bottom: 1rem;
 	cursor: pointer;
+	
+	& a {
+		color: black;
+		text-decoration: none;
+	}
 `
 
-
 const Footer = () => {
-	const [showLogin, setShowLogin] = useRecoilState(loginOverlayAtom)
 	const [loggedIn, setLoggedIn] = useRecoilState(loggedInAtom)
-	const navigate = useNavigate()
 
 	return (
 		<FooterStyled>
@@ -90,24 +90,13 @@ const Footer = () => {
 					<Logo src={tiktokLogo} alt="tiktok" />
 				</LogoContainer>
 			</div>
-			<AdminLogin onClick={() => {
-				if (!loggedIn) {
-					setShowLogin(!showLogin)
-				}
-				// else {
-				// 	setLoggedIn(false)
-				// 	navigate('/')
-				// }
-			}}>
+			<AdminLogin>
 				{!loggedIn &&
-					<Paragraph>Admin <span><img src={loginIcon} alt="login" /></span></Paragraph>
+					<Link to={'/admin'}>Admin <span><img src={loginIcon} alt="login" /></span></Link>
 				}
 			</AdminLogin>
 		</FooterStyled>
 	)
 }
-
-
-
 
 export default Footer

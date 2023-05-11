@@ -6,6 +6,7 @@ import { cartAtom } from "../../data/atoms/cartAtom"
 import { loggedInAtom } from "../../data/atoms/loggedInAtom"
 import deleteBin from '../../assets/icons/delete-bin-line.png'
 import { deleteProduct } from "../../utils/ajax/ajaxProducts"
+import { Button } from "../BasicStyles"
 
 
 const Card = styled.div`
@@ -58,31 +59,9 @@ const CardPrice = styled.p`
 	font-size: 1.2em;
 `
 
-export const AddButton = styled.button`
-	max-width: fit-content;
-	font-size: 1.1em;
-	padding: 0.3em 0.8em;
-	align-self: center;
-	border-radius: 0.5em;
+const DeleteButton = styled(Button)`
 	background-color: #A7CBD2;
 	border: 1px solid #90bcc4;
-	box-shadow: 0.3em 0.3em 1em lightgray;
-	cursor: pointer;
-
-	&:hover {
-		background-color: #89bdc7;
-		border: 1px solid #7eb0b9;
-	}
-`
-
-const DeleteButton = styled.button`
-	max-width: fit-content;
-	padding: 0.3em 0.8em;
-	align-self: center;
-	border-radius: 0.5em;
-	background-color: #A7CBD2;
-	border: 1px solid #90bcc4;
-	box-shadow: 0.3em 0.3em 1em lightgray;
 
 	&:hover {
 		background-color: #89bdc7;
@@ -105,7 +84,7 @@ const ProductCard = ({ product }) => {
 						<h3>{product.name}</h3>
 						<CardPrice>{product.price}:-</CardPrice>
 						{!loggedIn
-							? <AddButton onClick={() => addToCart(product, cart, setCart)}>Lägg till</AddButton>
+							? <Button onClick={() => addToCart(product, cart, setCart)}>Lägg till</Button>
 							: <DeleteButton onClick={() => deleteProduct(product.id)}> <img src={deleteBin} alt="Ta bort" /> </DeleteButton>
 						}
 					</CardContentContainer>

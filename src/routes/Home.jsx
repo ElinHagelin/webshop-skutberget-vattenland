@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import homeBackground from '../assets/images/home-background.jpg'
 import { NavLink } from "react-router-dom"
+import { useRecoilState } from "recoil"
+import { loggedInAtom } from "../data/atoms/loggedInAtom"
 
 
 const HeroContainer = styled.div`
@@ -65,14 +67,18 @@ const HeroSubHeading = styled.h2`
 	}
 `
 
-const Home = () => (
-	<>
-		<HeroContainer>
-			<HeroHeading>Välkommen till webshopen!</HeroHeading>
-			<HeroSubHeading>För att se våra produkter <br /> klicka <NavLink to={'/products'}>här</NavLink>!</HeroSubHeading>
-		</HeroContainer>
+const Home = () => {
+	const [loggedIn] = useRecoilState(loggedInAtom)
+	console.log('loggedIn är: ', loggedIn);
+	return (
+		<>
+			<HeroContainer>
+				<HeroHeading>Välkommen till webshopen!</HeroHeading>
+				<HeroSubHeading>För att se våra produkter <br /> klicka <NavLink to={'/products'}>här</NavLink>!</HeroSubHeading>
+			</HeroContainer>
 
-	</>
-)
+		</>
+	)
+}
 
 export default Home

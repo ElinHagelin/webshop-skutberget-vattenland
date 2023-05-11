@@ -1,4 +1,3 @@
-
 const productFormInputlist = [
 	{
 		name: 'Namn på produkten',
@@ -16,19 +15,9 @@ const productFormInputlist = [
 		inputId: 'product-price'
 	},
 	{
-		name: 'Bild 1 (url)',
+		name: 'Bild (url)',
 		type: 'text',
-		inputId: 'img-1'
-	},
-	{
-		name: 'Bild 2 (url)',
-		type: 'text',
-		inputId: 'img-2'
-	},
-	{
-		name: 'Bild 3 (url)',
-		type: 'text',
-		inputId: 'img-3'
+		inputId: 'img'
 	}
 ]
 

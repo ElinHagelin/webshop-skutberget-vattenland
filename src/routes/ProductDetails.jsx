@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import backIcon from '../assets/icons/arrow-go-back-line.png'
-import { AddButton } from '../components/productComponents/ProductCard'
+import { Button } from '../components/BasicStyles'
 import addToCart from '../utils/addToCart'
 import { useRecoilState } from 'recoil'
 import { cartAtom } from '../data/atoms/cartAtom'
@@ -77,7 +77,7 @@ const ProductDesc = styled.p`
 	grid-area: desc;
 `
 
-const AddToCart = styled(AddButton)`
+const AddToCart = styled(Button)`
 	margin: 2em;
 	grid-area: addBtn;
 	place-self: center;

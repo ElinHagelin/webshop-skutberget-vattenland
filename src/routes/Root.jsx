@@ -26,7 +26,6 @@ function Root() {
 
   const [products, setProducts] = useRecoilState(productsAtom)
 
-  // const productsFromApi = useLoaderData()
   useEffect(() => {
     async function fetchProducts() {
       const productsFromAPI = await getProducts()
@@ -36,13 +35,22 @@ function Root() {
     fetchProducts()
   }, [setProducts])
 
+  // return (
+  //   <Body>
+  //     <Header />
+  //     <Main>
+  //       <Outlet />
+  //     </Main>
+  //     <AdminLogin />
+  //     <Footer />
+  //   </Body>
+  // )
   return (
     <Body>
       <Header />
       <Main>
         <Outlet />
       </Main>
-      <AdminLogin />
       <Footer />
     </Body>
   )

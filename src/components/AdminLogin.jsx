@@ -1,17 +1,12 @@
 import { useRecoilState } from "recoil"
 import styled from "styled-components"
-import { loginOverlayAtom } from "../data/atoms/loginOverlay"
 import { useState, useEffect } from "react"
 import { adminAtom } from "../data/atoms/adminAtom"
 import { isValidUsername, isValidLogin, isValidPassword } from "../utils/loginValidation"
 import { loggedInAtom } from "../data/atoms/loggedInAtom"
-import { useNavigate } from "react-router-dom"
 
 
 const LogInModal = styled.div`
-	position: fixed;
-	top: 40%;
-	left: 40%;
 	background-color: #E2F8FF;
 	border: 3px solid black;
 	border-radius: 1em;
@@ -37,7 +32,6 @@ const LoginButton = styled.button`
 `
 
 const AdminLogin = () => {
-	const [showLogin, setShowLogin] = useRecoilState(loginOverlayAtom)
 	const [loggedIn, setLoggedIn] = useRecoilState(loggedInAtom)
 	const [adminList, setAdminList] = useRecoilState(adminAtom)
 	const [username, setUsername] = useState('')
@@ -46,8 +40,6 @@ const AdminLogin = () => {
 	const [passwordIsDirty, setPasswordIsDirty] = useState(false)
 	const [usernameIsValid, setUsernameIsValid] = useState(false)
 	const [passwordIsValid, setPasswordIsValid] = useState(false)
-	const navigate = useNavigate()
-
 
 	useEffect(() => {
 		const isValid = isValidUsername(username, adminList);
@@ -69,9 +61,7 @@ const AdminLogin = () => {
 		if (usernameIsValid && passwordIsValid) {
 			let checkMatch = isValidLogin(username, password, adminList)
 			if (checkMatch) {
-				setShowLogin(false)
 				setLoggedIn(true)
-				navigate('/admin')
 			}
 		} else if (usernameIsValid && !passwordIsValid) {
 			e.preventDefault()
@@ -81,10 +71,10 @@ const AdminLogin = () => {
 	}
 
 	return (
-		<LogInModal className={!showLogin ? 'login-modal' : 'login-modal hidden'}>
+		<LogInModal className='login-modal'>
 			<LoginHeading>Administratör-inloggning</LoginHeading>
 			<InputGroup>
-				<label htmlFor="username">Anställningsnummer</label>
+				<label htmlFor="username">Användarnamn</label>
 				<input
 					type="text"
 					id="username"

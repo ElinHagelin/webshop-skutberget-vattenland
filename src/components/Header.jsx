@@ -27,8 +27,7 @@ const HeaderStyled = styled.header`
 		background-size: cover;
 		background-position: center center;
 		opacity: 0.5; 
-	}
-	
+	}	
 `
 
 const HeaderLogo = styled.h1`
@@ -54,10 +53,6 @@ const HeaderButton = styled.button`
 	}
 `
 
-// const NavLink = styled.a`
-// 	font-size: 1.5em;
-// `
-
 const Header = () => {
 	const [showCart, setShowCart] = useRecoilState(showCartAtom)
 	const [loggedIn, setLoggedIn] = useRecoilState(loggedInAtom)
@@ -78,23 +73,21 @@ const Header = () => {
 			<HeaderLogo>Skutberget Vattenland <br />
 				Webshop
 			</HeaderLogo>
-			{/* <NavBar> */}
-			{!loggedIn
+			{loggedIn
 				? <NavBar>
+					<NavLink to='admin/users'>Admins</NavLink>
+					<NavLink to='admin/products'>Produkter</NavLink>
+					<HeaderButton onClick={handleLogout}>Logga ut <img src={logoutIcon} alt="Logga ut" /></HeaderButton>
+				</NavBar>
+
+				: <NavBar>
 					<NavLink to='/'>Hem</NavLink>
 					<NavLink to='/products'>Produkter</NavLink>
 					<HeaderButton><img src={shoppingCart} alt="kundvagn"
 						onClick={handleCartClick}
 					/></HeaderButton>
 				</NavBar>
-				: <NavBar>
-					<NavLink to='admin/users'>Admins</NavLink>
-					<NavLink to='admin/products'>Produkter</NavLink>
-					<HeaderButton onClick={handleLogout}>Logga ut <img src={logoutIcon} alt="Logga ut" /></HeaderButton>
-				</NavBar>
 			}
-
-			{/* </NavBar> */}
 			<Cart />
 		</HeaderStyled>
 	)

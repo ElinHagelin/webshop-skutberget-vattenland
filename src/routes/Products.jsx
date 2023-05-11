@@ -1,13 +1,10 @@
-import { useLoaderData } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import ProductCard from "../components/productComponents/ProductCard";
-// import testData from "../data/testdata";
 import productSorting from "../utils/productSorting";
 import productMatch from "../utils/searchFunctions";
 import { useRecoilState } from "recoil";
 import { productsAtom } from "../data/atoms/productsAtom";
-import { getProducts } from "../utils/ajax/ajaxProducts";
 
 
 const MainContainer = styled.main`
@@ -62,17 +59,6 @@ const Products = () => {
 	const [products, setProducts] = useRecoilState(productsAtom)
 	const [productsToShow, setProductsToShow] = useState([...products])
 
-	// console.log('products är: ', products);
-
-	// const productsFromApi = useLoaderData()
-	// useEffect(() => {
-	// 	async function fetchProducts() {
-	// 		const productsFromAPI = await getProducts()
-	// 		setProducts(productsFromAPI)
-	// 		console.log('productsFromAPI är: ', productsFromAPI);
-	// 	}
-	// 	fetchProducts()
-	// }, [])
 
 	const handleSearchChange = event => {
 		if (!event.target.value) {
