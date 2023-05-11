@@ -6,7 +6,7 @@ import Footer from '../components/Footer'
 import styled from 'styled-components'
 import AdminLogin from '../components/AdminLogin'
 import { productsAtom } from '../data/atoms/productsAtom'
-import { getProducts } from '../utils/ajax'
+import { getProducts } from '../utils/ajax/ajaxProducts'
 
 
 const Body = styled.div`
@@ -34,7 +34,7 @@ function Root() {
       console.log('productsFromAPI är: ', productsFromAPI);
     }
     fetchProducts()
-  }, [])
+  }, [setProducts])
 
   return (
     <Body>

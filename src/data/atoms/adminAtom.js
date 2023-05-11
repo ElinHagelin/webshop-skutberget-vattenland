@@ -4,7 +4,7 @@ const adminAtom = atom({
 	key: 'admin-list',
 	default: [
 		{
-			employeeNumber: 'admin',
+			username: 'admin',
 			password: 'password'
 		}
 	]

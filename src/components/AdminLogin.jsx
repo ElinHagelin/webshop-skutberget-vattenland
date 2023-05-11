@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { loginOverlayAtom } from "../data/atoms/loginOverlay"
 import { useState, useEffect } from "react"
 import { adminAtom } from "../data/atoms/adminAtom"
-import { isValidENumber, isValidLogin, isValidPassword } from "../utils/loginValidation"
+import { isValidUsername, isValidLogin, isValidPassword } from "../utils/loginValidation"
 import { loggedInAtom } from "../data/atoms/loggedInAtom"
 import { useNavigate } from "react-router-dom"
 
@@ -40,42 +40,42 @@ const AdminLogin = () => {
 	const [showLogin, setShowLogin] = useRecoilState(loginOverlayAtom)
 	const [loggedIn, setLoggedIn] = useRecoilState(loggedInAtom)
 	const [adminList, setAdminList] = useRecoilState(adminAtom)
-	const [eNumber, setENumber] = useState('')
-	const [eNumberIsDirty, setENumberIsDirty] = useState(false)
+	const [username, setUsername] = useState('')
+	const [usernameIsDirty, setUsernameIsDirty] = useState(false)
 	const [password, setPassword] = useState('')
 	const [passwordIsDirty, setPasswordIsDirty] = useState(false)
-	const [eNumberIsValid, setENumberIsValid] = useState(false)
+	const [usernameIsValid, setUsernameIsValid] = useState(false)
 	const [passwordIsValid, setPasswordIsValid] = useState(false)
 	const navigate = useNavigate()
 
 
 	useEffect(() => {
-		const isValid = isValidENumber(eNumber, adminList);
-		setENumberIsValid(isValid);
-	}, [eNumber, adminList]);
+		const isValid = isValidUsername(username, adminList);
+		setUsernameIsValid(isValid);
+	}, [username, adminList]);
 
 	useEffect(() => {
 		const isValid = isValidPassword(password, adminList);
 		setPasswordIsValid(isValid);
 	}, [password, adminList]);
 
-	const handleENumberChange = (e) => {
-		setENumber(e.target.value);
+	const handleusernameChange = (e) => {
+		setUsername(e.target.value);
 	};
 	const handlePasswordChange = (e) => {
 		setPassword(e.target.value);
 	};
 	const handleLogin = (e) => {
-		if (eNumberIsValid && passwordIsValid) {
-			let checkMatch = isValidLogin(eNumber, password, adminList)
+		if (usernameIsValid && passwordIsValid) {
+			let checkMatch = isValidLogin(username, password, adminList)
 			if (checkMatch) {
-				setLoggedIn(true)
 				setShowLogin(false)
+				setLoggedIn(true)
 				navigate('/admin')
 			}
-		} else if (eNumberIsValid && !passwordIsValid) {
+		} else if (usernameIsValid && !passwordIsValid) {
 			e.preventDefault()
-		} else if (!eNumberIsValid && passwordIsValid) {
+		} else if (!usernameIsValid && passwordIsValid) {
 			e.preventDefault()
 		}
 	}
@@ -84,16 +84,16 @@ const AdminLogin = () => {
 		<LogInModal className={!showLogin ? 'login-modal' : 'login-modal hidden'}>
 			<LoginHeading>Administratör-inloggning</LoginHeading>
 			<InputGroup>
-				<label htmlFor="employee-number">Anställningsnummer</label>
+				<label htmlFor="username">Anställningsnummer</label>
 				<input
 					type="text"
-					id="employee-number"
-					name="Anställningsnummer"
-					value={eNumber}
-					onChange={handleENumberChange}
-					onBlur={() => setENumberIsDirty(true)} />
+					id="username"
+					name="Användarnamn"
+					value={username}
+					onChange={handleusernameChange}
+					onBlur={() => setUsernameIsDirty(true)} />
 				<span className="valid-e-number">
-					{eNumberIsDirty ? (eNumberIsValid ? "✔️" : "❌") : ""}
+					{usernameIsDirty ? (usernameIsValid ? "✔️" : "❌") : ""}
 				</span>
 			</InputGroup>
 			<InputGroup>

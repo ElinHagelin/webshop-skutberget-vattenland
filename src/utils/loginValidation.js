@@ -1,7 +1,7 @@
 
 
-const isValidENumber = (eNumber, adminList) => {
-	const checkNumber = adminList.find(admin => String(admin.employeeNumber) == eNumber)
+const isValidUsername = (username, adminList) => {
+	const checkNumber = adminList.find(admin => String(admin.username) == username)
 	if (checkNumber) {
 		// console.log('Rätt anställningsnummer')
 		return true
@@ -20,8 +20,8 @@ const isValidPassword = (password, adminList) => {
 	}
 }
 
-const isValidLogin = (eNumber, password, adminList) => {
-	const checkInput = adminList.find(admin => String(admin.employeeNumber) == eNumber && String(admin.password) == password)
+const isValidLogin = (username, password, adminList) => {
+	const checkInput = adminList.find(admin => String(admin.username) == username && String(admin.password) == password)
 	if (checkInput) {
 		// console.log('Inloggning lyckades')
 		return true
@@ -30,4 +30,4 @@ const isValidLogin = (eNumber, password, adminList) => {
 	}
 }
 
-export { isValidENumber, isValidPassword, isValidLogin }
+export { isValidUsername, isValidPassword, isValidLogin }

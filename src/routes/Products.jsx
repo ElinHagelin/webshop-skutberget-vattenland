@@ -7,7 +7,7 @@ import productSorting from "../utils/productSorting";
 import productMatch from "../utils/searchFunctions";
 import { useRecoilState } from "recoil";
 import { productsAtom } from "../data/atoms/productsAtom";
-import { getProducts } from "../utils/ajax";
+import { getProducts } from "../utils/ajax/ajaxProducts";
 
 
 const MainContainer = styled.main`
@@ -105,7 +105,7 @@ const Products = () => {
 				? <ProductGrid>
 
 					{productsToShow.map(product => (
-						<ProductCard key={product.productid} product={product} />
+						<ProductCard key={product.id} product={product} />
 					))}
 
 				</ProductGrid>

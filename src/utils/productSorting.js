@@ -5,7 +5,7 @@ import testData from "../data/testdata";
 const productSorting = (order, productsToShow, setProductsToShow, products) => {
 
 	if (order == 'popular') {
-		console.log('products i productsSorting är: ', products);
+		// console.log('products i productsSorting är: ', products);
 		setProductsToShow(products)
 	} else {
 		let valueToCompare = order == 'alpha-rising' || order == 'alpha-falling' ? 'name' : 'price'

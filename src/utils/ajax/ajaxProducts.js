@@ -1,5 +1,5 @@
-import testData from "../data/testdata.js";
-import { shopId } from "../data/constants.js";
+import testData from "../../data/testdata.js";
+import { shopId } from "../../data/constants.js";
 
 
 // const productLoader = () => testData
@@ -8,9 +8,9 @@ const productLoader = () => getProducts()
 export async function getProducts() {
 
 	const url = 'https://www.forverkliga.se/JavaScript/api/fe/'
-	const shop = shopId
+	// const shop = shopId
 
-	let urlWithQuery = url + '?action=get-products&shopid=' + shop
+	let urlWithQuery = url + '?action=get-products&shopid=' + shopId
 	try {
 		const response = await fetch(urlWithQuery)
 		const data = await response.json()
@@ -21,7 +21,7 @@ export async function getProducts() {
 	return null
 }
 
-export async function uploadProduct(name, description, price, productid, picture) {
+export async function uploadProduct(name, description, price, id, picture) {
 
 	const url = 'https://www.forverkliga.se/JavaScript/api/fe/?action=add-product'
 
@@ -31,7 +31,6 @@ export async function uploadProduct(name, description, price, productid, picture
 		description: description,
 		picture: picture,
 		price: price,
-		productid: productid,
 		shopid: shopId
 	}
 	const options = {
@@ -41,7 +40,7 @@ export async function uploadProduct(name, description, price, productid, picture
 	}
 	const response = await fetch(url, options)
 	const statusObject = await response.json()
-	if (statusObject.stats === 'success') {
+	if (statusObject.status === 'success') {
 		console.log('success');
 		return true
 	}
@@ -59,7 +58,7 @@ export async function deleteProduct(productId) {
 	}
 
 	const options = {
-		method: 'POST',
+		method: 'DELETE',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data)
 	}

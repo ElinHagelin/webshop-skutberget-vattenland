@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil"
 import { cartAtom } from "../../data/atoms/cartAtom"
 import { loggedInAtom } from "../../data/atoms/loggedInAtom"
 import deleteBin from '../../assets/icons/delete-bin-line.png'
-import { deleteProduct } from "../../utils/ajax"
+import { deleteProduct } from "../../utils/ajax/ajaxProducts"
 
 
 const Card = styled.div`
@@ -26,6 +26,11 @@ const Card = styled.div`
 }
 `
 
+const CardLink = styled(Link)`
+	color: black;
+	text-decoration: none;
+`
+
 const CardImg = styled.img`
 	width: 100%;
 	aspect-ratio: 1/1;
@@ -41,10 +46,10 @@ const CardContentContainer = styled.div`
 	flex-grow: 1;
 `
 
-const CardHeading = styled(Link)`
-	color: black;
-	text-decoration: none;
-`
+// const CardHeading = styled(Link)`
+// 	color: black;
+// 	text-decoration: none;
+// `
 
 const CardPrice = styled.p`
 	align-self: flex-end;
@@ -55,12 +60,14 @@ const CardPrice = styled.p`
 
 export const AddButton = styled.button`
 	max-width: fit-content;
+	font-size: 1.1em;
 	padding: 0.3em 0.8em;
 	align-self: center;
 	border-radius: 0.5em;
 	background-color: #A7CBD2;
 	border: 1px solid #90bcc4;
 	box-shadow: 0.3em 0.3em 1em lightgray;
+	cursor: pointer;
 
 	&:hover {
 		background-color: #89bdc7;
@@ -92,15 +99,17 @@ const ProductCard = ({ product }) => {
 	if (product) {
 		return (
 			<Card>
-				<CardImg src={product.picture[0]} alt={product.name} />
-				<CardContentContainer>
-					<CardHeading to={'/details/' + product.productid}>{product.name}</CardHeading>
-					<CardPrice>{product.price}:-</CardPrice>
-					{!loggedIn
-						? <AddButton onClick={() => addToCart(product, cart, setCart)}>Lägg till</AddButton>
-						: <DeleteButton onClick={() => deleteProduct(product.productid)}> <img src={deleteBin} alt="Ta bort" /> </DeleteButton>
-					}
-				</CardContentContainer>
+				<CardLink to={'/details/' + product.id}>
+					<CardImg src={product.picture} alt={product.name} />
+					<CardContentContainer>
+						<h3>{product.name}</h3>
+						<CardPrice>{product.price}:-</CardPrice>
+						{!loggedIn
+							? <AddButton onClick={() => addToCart(product, cart, setCart)}>Lägg till</AddButton>
+							: <DeleteButton onClick={() => deleteProduct(product.id)}> <img src={deleteBin} alt="Ta bort" /> </DeleteButton>
+						}
+					</CardContentContainer>
+				</CardLink>
 			</Card>
 		)
 	}

@@ -29,7 +29,7 @@ const ProductGrid = styled.div`
 `
 
 const AdminProducts = () => {
-	const [productsToShow, setProductsToShow] = useRecoilState(productsAtom)
+	const [products] = useRecoilState(productsAtom)
 	const [loggedIn] = useRecoilState(loggedInAtom)
 
 	if (!loggedIn) {
@@ -42,8 +42,8 @@ const AdminProducts = () => {
 				</FormContainer>
 
 				<ProductGrid>
-					{productsToShow.map(product => (
-						<ProductCard key={product.productid} product={product} />
+					{products.map(product => (
+						<ProductCard key={product.id} product={product} />
 					))}
 				</ProductGrid>
 			</>
