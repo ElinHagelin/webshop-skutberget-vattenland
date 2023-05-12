@@ -99,7 +99,7 @@ const Footer = () => {
 				</LogoContainer>
 			</div>
 			<AdminLogin>
-				{!loggedIn &&
+				{loggedIn === true ? null :
 					<Link to={'/admin'}>Admin <span><img src={loginIcon} alt="login" /></span></Link>
 				}
 			</AdminLogin>

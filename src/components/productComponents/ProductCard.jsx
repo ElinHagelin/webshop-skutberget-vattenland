@@ -79,12 +79,13 @@ const ProductCard = ({ product }) => {
 		e.preventDefault()
 		addToCart(product, cart, setCart)
 	}
-	const handleDeleteFromCart = async (e, productId) => {
+	const handleDeleteFromProductList = async (e, productId) => {
 		e.preventDefault()
 		const remove = await deleteProduct(productId)
 		if (remove) {
 			const newProductList = await getProducts()
 			setProducts(newProductList)
+			console.log('newProductList är: ', newProductList);
 		} else {
 			console.log('failed to remove');
 		}
@@ -100,7 +101,7 @@ const ProductCard = ({ product }) => {
 						<CardPrice>{product.price}:-</CardPrice>
 						{!loggedIn
 							? <Button onClick={handleAddToCart}>Lägg till</Button>
-							: <DeleteButton onClick={(e) => handleDeleteFromCart(e, product.id)}><img src={deleteBin} alt="Ta bort" /> </DeleteButton>
+							: <DeleteButton onClick={(e) => handleDeleteFromProductList(e, product.id)}><img src={deleteBin} alt="Ta bort" /> </DeleteButton>
 						}
 					</CardContentContainer>
 				</CardLink>

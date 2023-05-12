@@ -75,12 +75,12 @@ async function deleteUser(id) {
 
 	const data = {
 		action: 'delete-user',
-		id: id,
+		userid: id,
 		shopid: shopId
 	}
 
 	const options = {
-		method: 'DELETE',
+		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data)
 	}

@@ -7,6 +7,7 @@ const addAllProducts = () => {
 	)
 }
 
+
 async function deleteAllProducts() {
 	const allProducts = await getProducts()
 	console.log('allProducts är: ', allProducts);

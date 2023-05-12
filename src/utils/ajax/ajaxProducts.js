@@ -52,7 +52,7 @@ export async function deleteProduct(productId) {
 	}
 
 	const options = {
-		method: 'DELETE',
+		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data),
 	}

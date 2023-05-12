@@ -1,19 +1,19 @@
 
 
-const isValidUsername = (username, adminList) => {
-	const checkNumber = adminList.find(admin => String(admin.username) == username)
-	if (checkNumber) {
-		// console.log('Rätt anställningsnummer')
+const isValidUsername = (username) => {
+	const regex = /^[a-ö]{3,}$/;
+
+	if (regex.test(username)) {
 		return true
 	} else {
 		return false
 	}
 }
 
-const isValidPassword = (password, adminList) => {
-	const checkPassword = adminList.find(admin => String(admin.password) == password)
-	if (checkPassword) {
-		// console.log('Rätt lösenord')
+const isValidPassword = (password) => {
+	const regex = /^[a-öA-Ö0-9]{6,}$/
+
+	if (regex.test(password)) {
 		return true
 	} else {
 		return false

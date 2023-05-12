@@ -1,15 +1,16 @@
 import { useState } from "react"
 import styled from "styled-components"
-import inputList from '../data/productFormInputList.js'
 import { getProducts, uploadProduct } from "../utils/ajax/ajaxProducts.js"
 import { useRecoilState } from "recoil"
 import { productsAtom } from "../data/atoms/productsAtom.js"
 import { Button, Input } from "./BasicStyles.js"
+import { ErrorMessage } from "./AddAdminForm.jsx"
+import { isValidProductName, isValidProductDescription, isValidProductPrice, isValidProductUrl } from "../utils/productValidation.js"
 
 export const Form = styled.form`
 	display: flex;
 	flex-direction: column;
-	padding: 1.5em 2em;
+	padding: 1.5em 3em;
 	background-color: lightblue;
 	border-radius: 1em;
 `
@@ -37,7 +38,7 @@ export const AddButton = styled(Button)`
 	}
 `
 
-const Status = styled.span`
+export const Status = styled.span`
 	min-height: 1.1em;
 	margin-top: 0.4em;
 `
@@ -45,9 +46,13 @@ const Status = styled.span`
 const AddProductForm = () => {
 	const [products, setProducts] = useRecoilState(productsAtom)
 	const [productName, setProductName] = useState('')
-	const [productDescription, setProductDescription] = useState('')
-	const [productPrice, setProductPrice] = useState('')
-	const [productImg, setProductImg] = useState('')
+	const [nameIsDirty, setNameIsDirty] = useState(false)
+	const [description, setDescription] = useState('')
+	const [descriptionIsDirty, setDescriptionIsDirty] = useState(false)
+	const [price, setPrice] = useState('')
+	const [priceIsDirty, setPriceIsDirty] = useState(false)
+	const [picture, setPicture] = useState('')
+	const [pictureIsDirty, setPictureIsDirty] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
 	const [statusMessage, setStatusMessage] = useState('')
 
@@ -62,28 +67,19 @@ const AddProductForm = () => {
 	// 	}, 1000);
 	// 	return () => clearTimeout(timer);
 	//   }, [statusMessage]);
+	// let validation = null
 
-	inputList.map(input => {
-		if (input.inputId == 'product-name') {
-			input.state = productName
-			input.setState = setProductName
-		} else if (input.inputId == 'product-description') {
-			input.state = productDescription
-			input.setState = setProductDescription
-		} else if (input.inputId == 'product-price') {
-			input.state = productPrice
-			input.setState = setProductPrice
-		} else if (input.inputId == 'img') {
-			input.state = productImg
-			input.setState = setProductImg
-		}
-	})
+	const nameIsValid = isValidProductName(productName)
+	const descriptionIsValid = isValidProductDescription(description)
+	const priceIsValid = isValidProductPrice(price)
+	const urlIsValid = isValidProductUrl(picture)
+
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		setIsLoading(true)
 
-		const upload = await uploadProduct(productName, productDescription, productPrice, productImg)
+		const upload = await uploadProduct(productName, description, price, picture)
 		console.log(upload);
 
 		if (upload) {
@@ -100,27 +96,63 @@ const AddProductForm = () => {
 	return (
 		<Form action="#">
 			<h2>Lägg till Produkt</h2>
-			{inputList.map(input => (
-				<InputGroup key={input.inputId}>
-					<label htmlFor={input.inputId}>{input.name}</label>
-					{input.type === 'text'
-						? <Input
-							type='text'
-							id={input.inputId}
-							value={input.state}
-							onChange={(e) => input.setState(e.target.value)}
-							required
-						/>
-						: <TextArea
-							id={input.inputId}
-							value={input.state}
-							onChange={(e) => input.setState(e.target.value)}
-							required
-						/>
-					}
-				</InputGroup>
 
-			))}
+			<InputGroup key='product-name'>
+				<label htmlFor='product-name'>Namn på produkten</label>
+
+				<Input
+					type='text'
+					id='product-name'
+					value={productName}
+					onChange={(e) => setProductName(e.target.value)}
+					onBlur={() => setNameIsDirty(true)}
+					required
+				/>
+			</InputGroup>
+
+			<ErrorMessage>{nameIsDirty && (nameIsValid === false && <p>minst 3 bokstäver</p>)}</ErrorMessage>
+
+			<InputGroup key='product-description'>
+				<label htmlFor='product-description'>Beskrivning av produkten</label>
+				<TextArea
+					id='product-description'
+					value={description}
+					onChange={(e) => setDescription(e.target.value)}
+					onBlur={() => setDescriptionIsDirty(true)}
+					required
+				/>
+			</InputGroup>
+
+			<ErrorMessage>{descriptionIsDirty && (descriptionIsValid === false && <p>minst 3 tecken</p>)}</ErrorMessage>
+
+			<InputGroup key='product-price'>
+				<label htmlFor='product-price'>Pris</label>
+				<Input
+					type='text'
+					id='product-price'
+					value={price}
+					onChange={(e) => setPrice(e.target.value)}
+					onBlur={() => setPriceIsDirty(true)}
+					required
+				/>
+			</InputGroup>
+
+			<ErrorMessage>{priceIsDirty && (priceIsValid === false && <p>Endast siffror</p>)}</ErrorMessage>
+
+			<InputGroup key='product-url'>
+				<label htmlFor='product-url'>Bild (url)</label>
+				<Input
+					type='text'
+					id='product-url'
+					value={picture}
+					onChange={(e) => setPicture(e.target.value)}
+					onBlur={() => setPictureIsDirty(true)}
+					required
+				/>
+			</InputGroup>
+
+			<ErrorMessage>{pictureIsDirty && (urlIsValid === false && <p>kontrollera att url:en är giltig</p>)}</ErrorMessage>
+
 
 			<Status>{statusMessage && <p>{statusMessage}</p>}</Status>
 
@@ -128,5 +160,6 @@ const AddProductForm = () => {
 		</Form>
 	)
 }
+
 
 export default AddProductForm

@@ -33,18 +33,9 @@ function Root() {
       console.log('productsFromAPI är: ', productsFromAPI);
     }
     fetchProducts()
-  }, [])
+  }, [setProducts])
 
-  // return (
-  //   <Body>
-  //     <Header />
-  //     <Main>
-  //       <Outlet />
-  //     </Main>
-  //     <AdminLogin />
-  //     <Footer />
-  //   </Body>
-  // )
+
   return (
     <Body>
       <Header />

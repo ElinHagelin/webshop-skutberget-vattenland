@@ -1,4 +1,4 @@
-import { NavLink, Navigate } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import styled from "styled-components"
 import { loggedInAtom } from "../data/atoms/loggedInAtom"
@@ -25,18 +25,18 @@ const AdminHome = () => {
 
 	console.log('loggedIn i AdminHome är: ', loggedIn);
 
-	if (loggedIn === false) {
+	if (loggedIn === true) {
 		return (
 			<AdminContent>
-				<AdminLogin />
+				<AdminHeading>Välkommen Admin</AdminHeading>
+				<AdminParagraph>Du kan nu komma åt att redigera produktlistan <NavLink to='admin/products'>här!</NavLink></AdminParagraph>
+				<AdminParagraph>Vill du lägga till eller ta bort användare kan du klicka <NavLink to='admin/users'>här!</NavLink></AdminParagraph>
 			</AdminContent>
 		)
 	} else {
 		return (
 			<AdminContent>
-				<AdminHeading>Välkommen Admin</AdminHeading>
-				<AdminParagraph>Du kan nu komma åt att redigera produktlistan <NavLink to='/products'>här!</NavLink></AdminParagraph>
-				<AdminParagraph>Vill du lägga till eller ta bort användare kan du klicka <NavLink to='/users'>här!</NavLink></AdminParagraph>
+				<AdminLogin />
 			</AdminContent>
 		)
 	}

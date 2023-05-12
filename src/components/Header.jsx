@@ -139,18 +139,16 @@ const Header = () => {
 	}
 
 
-	if (loggedIn === false) {
+	if (loggedIn === true) {
 		return (
 			<HeaderStyled>
 				<HeaderLogo>Skutberget Vattenland <br />
 					Webshop
 				</HeaderLogo>
 				<NavBar>
-					<HeaderNavLink to='/'>Hem</HeaderNavLink>
-					<HeaderNavLink to='/products'>Produkter</HeaderNavLink>
-					<HeaderButton><img src={shoppingCart} alt="kundvagn"
-						onClick={handleCartClick}
-					/></HeaderButton>
+					<HeaderNavLink to='admin/users'>Admins</HeaderNavLink>
+					<HeaderNavLink to='admin/products'>Produkter</HeaderNavLink>
+					<HeaderButton onClick={handleLogout}>Logga ut <img src={logoutIcon} alt="Logga ut" /></HeaderButton>
 				</NavBar>
 				<Cart />
 			</HeaderStyled>
@@ -162,9 +160,11 @@ const Header = () => {
 					Webshop
 				</HeaderLogo>
 				<NavBar>
-					<HeaderNavLink to='admin/users'>Admins</HeaderNavLink>
-					<HeaderNavLink to='admin/products'>Produkter</HeaderNavLink>
-					<HeaderButton onClick={handleLogout}>Logga ut <img src={logoutIcon} alt="Logga ut" /></HeaderButton>
+					<HeaderNavLink to='/'>Hem</HeaderNavLink>
+					<HeaderNavLink to='/products'>Produkter</HeaderNavLink>
+					<HeaderButton><img src={shoppingCart} alt="kundvagn"
+						onClick={handleCartClick}
+					/></HeaderButton>
 				</NavBar>
 				<Cart />
 			</HeaderStyled>

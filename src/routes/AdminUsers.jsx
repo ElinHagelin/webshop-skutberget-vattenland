@@ -63,6 +63,9 @@ const AdminUsers = () => {
 		fetchUsers()
 	}, [setAdmins])
 
+	const handleDelete = (adminId) => {
+		deleteUser(adminId)
+	}
 
 	return (
 		<div>
@@ -75,7 +78,7 @@ const AdminUsers = () => {
 					admins.map(admin =>
 						<AdminContainer key={admin.username}>
 							<p>{admin.username}</p>
-							<DeleteUserButton onClick={() => deleteUser(admin.id)}><img src={deleteBin} alt="Ta bort" /></DeleteUserButton>
+							<DeleteUserButton onClick={() => handleDelete(admin.id)}><img src={deleteBin} alt="Ta bort" /></DeleteUserButton>
 						</AdminContainer>
 					)
 					: <p>Laddar användare...</p>
