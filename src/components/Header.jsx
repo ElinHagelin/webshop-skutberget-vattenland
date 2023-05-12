@@ -33,7 +33,11 @@ const HeaderStyled = styled.header`
 const HeaderLogo = styled.h1`
 	text-align: center;
 	position: relative;
+	font-size: 1.4em;
 
+	@media screen and (min-width: 800px){
+		font-size: 1.6em;
+	}
 `
 
 const NavBar = styled.nav`
@@ -69,6 +73,55 @@ const HeaderButton = styled.button`
 		transform: scale(1.1)
 	}
 `
+
+// const Header = () => {
+// 	const [showCart, setShowCart] = useRecoilState(showCartAtom)
+// 	const [loggedIn, setLoggedIn] = useRecoilState(loggedInAtom)
+// 	const navigate = useNavigate()
+
+// 	const handleCartClick = () => {
+// 		setShowCart(!showCart)
+// 		console.log(showCart);
+// 	}
+
+// 	const handleLogout = () => {
+// 		setLoggedIn(false)
+// 		navigate('/')
+// 	}
+
+
+// 	if (loggedIn === false) {
+// 		return (
+// 			<HeaderStyled>
+// 				<HeaderLogo>Skutberget Vattenland <br />
+// 					Webshop
+// 				</HeaderLogo>
+// 				<NavBar>
+// 					<HeaderNavLink to='/'>Hem</HeaderNavLink>
+// 					<HeaderNavLink to='/products'>Produkter</HeaderNavLink>
+// 					<HeaderButton><img src={shoppingCart} alt="kundvagn"
+// 						onClick={handleCartClick}
+// 					/></HeaderButton>
+// 				</NavBar>
+// 				<Cart />
+// 			</HeaderStyled>
+// 		)
+// 	} else {
+// 		return (
+// 			<HeaderStyled>
+// 				<HeaderLogo>Skutberget Vattenland <br />
+// 					Webshop
+// 				</HeaderLogo>
+// 				<NavBar>
+// 					<HeaderNavLink to='admin/users'>Admins</HeaderNavLink>
+// 					<HeaderNavLink to='admin/products'>Produkter</HeaderNavLink>
+// 					<HeaderButton onClick={handleLogout}>Logga ut <img src={logoutIcon} alt="Logga ut" /></HeaderButton>
+// 				</NavBar>
+// 				<Cart />
+// 			</HeaderStyled>
+// 		)
+// 	}
+// }
 
 const Header = () => {
 	const [showCart, setShowCart] = useRecoilState(showCartAtom)
