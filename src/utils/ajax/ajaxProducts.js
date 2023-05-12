@@ -1,14 +1,9 @@
-import testData from "../../data/testdata.js";
 import { shopId } from "../../data/constants.js";
 
-
-// const productLoader = () => testData
-const productLoader = () => getProducts()
 
 export async function getProducts() {
 
 	const url = 'https://www.forverkliga.se/JavaScript/api/fe/'
-	// const shop = shopId
 
 	let urlWithQuery = url + '?action=get-products&shopid=' + shopId
 	try {
@@ -45,7 +40,7 @@ export async function uploadProduct(name, description, price, picture) {
 		return true
 	}
 	console.log('failed', statusObject);
-	return false  // if you get false, use console.log to inspect the object
+	return false
 }
 
 export async function deleteProduct(productId) {
@@ -68,8 +63,5 @@ export async function deleteProduct(productId) {
 		return true
 	}
 	console.log('failed', statusObject);
-	return false  // if you get false, use console.log to inspect the object
+	return false
 }
-
-
-export default productLoader

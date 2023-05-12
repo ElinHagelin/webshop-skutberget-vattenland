@@ -1,15 +1,14 @@
-* Se till att man inte kan komma åt admin/products och admin/users utan att vara inloggad.
-
 * Navbaren ska bli en hamburgermeny i mindre skärmar.
 
 * Varför visar sidan som att man är inloggad direkt när man laddar sidan fastän loggedIn-atomens default ju är false.
 
 * Delete-funktionen fungerar bara i node och insomnia, ej i webbläsaren?
 
-* Ladda upp användare till API:et och koppla formuläret och ta-bort-knappen på user-sidan till API-funktionerna.
-
-* Uppdatera products-variabeln när man laddar upp en produkt eller tar bort en så att useEffecten där produkterna från API:et hämtas körs igen.
-
 * Lägg till återkoppling när man lägger något i kundvagnen
 
 * Lägg till återkoppling när man lägger till eller tar bort produkter och användare som admin.
+	- Har lagt till ett meddelande som visar om det lyckades eller inte, men skulle vilja att det bara är framme en liten stund och sen försvinner
+
+* Töm formulären när man lagt till produkt/användare.
+
+* Lägg till mer validering på formulären 

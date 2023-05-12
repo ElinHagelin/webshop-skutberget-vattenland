@@ -4,8 +4,9 @@ import AddProductForm from "../components/AddProductForm"
 import { productsAtom } from "../data/atoms/productsAtom"
 import ProductCard from "../components/productComponents/ProductCard"
 import { loggedInAtom } from "../data/atoms/loggedInAtom"
-import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import ProductGrid from './Products.jsx'
+import { useEffect } from "react"
 
 export const FormContainer = styled.div`
 	display: flex;
@@ -17,29 +18,32 @@ export const FormContainer = styled.div`
 const AdminProducts = () => {
 	const [products] = useRecoilState(productsAtom)
 	const [loggedIn] = useRecoilState(loggedInAtom)
+	const navigate = useNavigate()
 
-	if (loggedIn === false) {
-		<Navigate to="/admin" />
-	} else {
-		return (
-			<>
-				<FormContainer>
-					<AddProductForm />
-				</FormContainer>
+	useEffect(() => {
+		if (!loggedIn) {
+			navigate('/admin');
+		}
+	}, [loggedIn, navigate]);
 
-				{
-					products
-						? <ProductGrid>
-							{products.map(product => (
-								<ProductCard key={product.id} product={product} />
-							))}
-						</ProductGrid>
-						: <p>Laddar produkter...</p>
-				}
 
-			</>
-		)
-	}
+	return (
+		<>
+			<FormContainer>
+				<AddProductForm />
+			</FormContainer>
+
+			{
+				products
+					? <ProductGrid>
+						{products.map(product => (
+							<ProductCard key={product.id} product={product} />
+						))}
+					</ProductGrid>
+					: <p>Laddar produkter...</p>
+			}
+		</>
+	)
 }
 
 export default AdminProducts

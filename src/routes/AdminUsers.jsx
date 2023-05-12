@@ -5,7 +5,7 @@ import AddAdminForm from "../components/AddAdminForm"
 import deleteBin from '../assets/icons/delete-bin-line.png'
 import styled from "styled-components"
 import { FormContainer } from './AdminProducts.jsx'
-import { Navigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 import { Button } from "../components/BasicStyles"
 import { useEffect } from "react"
 import { deleteUser, getUsers } from "../utils/ajax/ajaxUsers"
@@ -47,6 +47,13 @@ const DeleteUserButton = styled(Button)`
 const AdminUsers = () => {
 	const [admins, setAdmins] = useRecoilState(adminAtom)
 	const [loggedIn] = useRecoilState(loggedInAtom)
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!loggedIn) {
+			navigate('/admin');
+		}
+	}, [loggedIn, navigate]);
 
 	useEffect(() => {
 		async function fetchUsers() {
@@ -56,29 +63,26 @@ const AdminUsers = () => {
 		fetchUsers()
 	}, [setAdmins])
 
-	if (loggedIn === false) {
-		<Navigate to="/admin" />
-	} else {
-		return (
-			<div>
-				<FormContainer>
-					<AddAdminForm />
-				</FormContainer>
-				<AdminListContainer>
-					<AdminHeading>Användarnamn</AdminHeading>
-					{admins != null ?
-						admins.map(admin =>
-							<AdminContainer key={admin.username}>
-								<p>{admin.username}</p>
-								<DeleteUserButton onClick={() => deleteUser(admin.id)}><img src={deleteBin} alt="Ta bort" /></DeleteUserButton>
-							</AdminContainer>
-						)
-						: <p>Laddar användare...</p>
-					}
-				</AdminListContainer>
-			</div>
-		)
-	}
+
+	return (
+		<div>
+			<FormContainer>
+				<AddAdminForm />
+			</FormContainer>
+			<AdminListContainer>
+				<AdminHeading>Användarnamn</AdminHeading>
+				{admins != null ?
+					admins.map(admin =>
+						<AdminContainer key={admin.username}>
+							<p>{admin.username}</p>
+							<DeleteUserButton onClick={() => deleteUser(admin.id)}><img src={deleteBin} alt="Ta bort" /></DeleteUserButton>
+						</AdminContainer>
+					)
+					: <p>Laddar användare...</p>
+				}
+			</AdminListContainer>
+		</div>
+	)
 }
 
 export default AdminUsers

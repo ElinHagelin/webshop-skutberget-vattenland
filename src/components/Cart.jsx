@@ -13,17 +13,18 @@ const CartStyled = styled.div`
 	right: 0;
 	border: 1px solid black;
 	background-color: #ffffff;
-	padding: 1rem;
+	padding: 1rem 2rem;
 	min-width: 15rem;
 	z-index: 1;
 	display: flex;
 	flex-direction: column;
 	border-radius: 0 0 0 1em;
+	min-width: 18rem;
 `
 
 export const ProductInCart = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 0.5fr;
 	grid-template-rows: 1fr 1fr;
 	grid-template-areas: 
 	'name price'
@@ -48,20 +49,28 @@ export const Amount = styled.div`
 	grid-area: amount;
 `
 
+const ChangeAmountButton = styled.button`
+	padding: 0.2em 0.3em;
+	margin: 0 0.2em;
+`
+
 const TotalPrice = styled.p`
 	font-weight: bold;
-	align-self: flex-end;
+	align-self: center;
 `
 
 const GoToCartButton = styled(Button)`
-	
 	margin-top: 1em;
 
+	& a {
+		color: black;
+		text-decoration: none;
+	}
 `
 
 const Cart = () => {
 	const [cart, setCart] = useRecoilState(cartAtom)
-	const [showCart, setShowCart] = useRecoilState(showCartAtom)
+	const [showCart] = useRecoilState(showCartAtom)
 
 
 	let totalPrice = 0
@@ -79,7 +88,7 @@ const Cart = () => {
 						<ProductName to={'/details/' + product.id}>{product.name}</ProductName>
 						<Price>{product.price * product.amount}:-</Price>
 						<Amount>
-							<p>Antal: <span><button onClick={() => removeFromCart(product, cart, setCart)}>-</button></span> {product.amount} <span><button onClick={() => addToCart(product, cart, setCart)}>+</button></span></p>
+							<p>Antal: <span><ChangeAmountButton onClick={() => removeFromCart(product, cart, setCart)}>-</ChangeAmountButton></span> {product.amount} <span><ChangeAmountButton onClick={() => addToCart(product, cart, setCart)}>+</ChangeAmountButton></span></p>
 						</Amount>
 					</ProductInCart>)
 					:
