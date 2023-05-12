@@ -61,9 +61,17 @@ const AdminLogin = styled.button`
 	bottom: 1rem;
 	cursor: pointer;
 	
+	&:hover {
+		transform: scale(1.1);
+	}
+
 	& a {
 		color: black;
 		text-decoration: none;
+
+		&:hover {
+		text-decoration: underline;
+	}
 	}
 `
 

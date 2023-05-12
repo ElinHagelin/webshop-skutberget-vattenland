@@ -2,8 +2,8 @@ import testData from "../data/testdata.js"
 import { deleteProduct, getProducts, uploadProduct } from "./ajax/ajaxProducts.js";
 
 const addAllProducts = () => {
-	testData.forEach(({ name, description, price, id, picture }) =>
-		uploadProduct(name, description, price, id, picture)
+	testData.forEach(({ name, description, price, picture }) =>
+		uploadProduct(name, description, price, picture)
 	)
 }
 

@@ -16,3 +16,9 @@ export const Button = styled.button`
 		border: 1px solid #7eb0b9;
 	}
 `
+
+export const Input = styled.input`
+	padding: 0.3em 0.5em;
+	border-radius: 0.4em;
+	border: 1px solid gray;
+`

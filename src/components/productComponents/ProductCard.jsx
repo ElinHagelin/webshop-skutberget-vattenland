@@ -5,8 +5,9 @@ import { useRecoilState } from "recoil"
 import { cartAtom } from "../../data/atoms/cartAtom"
 import { loggedInAtom } from "../../data/atoms/loggedInAtom"
 import deleteBin from '../../assets/icons/delete-bin-line.png'
-import { deleteProduct } from "../../utils/ajax/ajaxProducts"
+import { deleteProduct, getProducts } from "../../utils/ajax/ajaxProducts"
 import { Button } from "../BasicStyles"
+import { productsAtom } from "../../data/atoms/productsAtom"
 
 
 const Card = styled.div`
@@ -72,8 +73,22 @@ const DeleteButton = styled(Button)`
 const ProductCard = ({ product }) => {
 	const [cart, setCart] = useRecoilState(cartAtom)
 	const [loggedIn] = useRecoilState(loggedInAtom)
+	const [products, setProducts] = useRecoilState(productsAtom)
 
-	// console.log(product.picture[0]);
+	const handleAddToCart = (e) => {
+		e.preventDefault()
+		addToCart(product, cart, setCart)
+	}
+	const handleDeleteFromCart = async (e, productId) => {
+		e.preventDefault()
+		const remove = await deleteProduct(productId)
+		if (remove) {
+			const newProductList = await getProducts()
+			setProducts(newProductList)
+		} else {
+			console.log('failed to remove');
+		}
+	}
 
 	if (product) {
 		return (
@@ -84,8 +99,8 @@ const ProductCard = ({ product }) => {
 						<h3>{product.name}</h3>
 						<CardPrice>{product.price}:-</CardPrice>
 						{!loggedIn
-							? <Button onClick={() => addToCart(product, cart, setCart)}>Lägg till</Button>
-							: <DeleteButton onClick={() => deleteProduct(product.id)}> <img src={deleteBin} alt="Ta bort" /> </DeleteButton>
+							? <Button onClick={handleAddToCart}>Lägg till</Button>
+							: <DeleteButton onClick={(e) => handleDeleteFromCart(e, product.id)}><img src={deleteBin} alt="Ta bort" /> </DeleteButton>
 						}
 					</CardContentContainer>
 				</CardLink>

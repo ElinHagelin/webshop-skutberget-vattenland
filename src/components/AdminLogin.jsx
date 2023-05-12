@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import { adminAtom } from "../data/atoms/adminAtom"
 import { isValidUsername, isValidLogin, isValidPassword } from "../utils/loginValidation"
 import { loggedInAtom } from "../data/atoms/loggedInAtom"
+import { loginUser } from "../utils/ajax/ajaxUsers"
+import { Input } from "./BasicStyles"
 
 
 const LogInModal = styled.div`
@@ -13,6 +15,7 @@ const LogInModal = styled.div`
 	padding: 1em;
 	flex-direction: column;
 	align-items: center;
+	max-width: 30em;
 `
 
 const LoginHeading = styled.h3`
@@ -31,25 +34,19 @@ const LoginButton = styled.button`
 	max-width: fit-content;
 `
 
+const Error = styled.span`
+	color: red;
+	min-height: 1.1em;
+	margin-top: 0.4em;
+`
+
 const AdminLogin = () => {
 	const [loggedIn, setLoggedIn] = useRecoilState(loggedInAtom)
-	const [adminList, setAdminList] = useRecoilState(adminAtom)
 	const [username, setUsername] = useState('')
-	const [usernameIsDirty, setUsernameIsDirty] = useState(false)
 	const [password, setPassword] = useState('')
-	const [passwordIsDirty, setPasswordIsDirty] = useState(false)
-	const [usernameIsValid, setUsernameIsValid] = useState(false)
-	const [passwordIsValid, setPasswordIsValid] = useState(false)
+	const [isLoading, setIsLoading] = useState(false)
+	const [errorMessage, setErrorMessage] = useState('')
 
-	useEffect(() => {
-		const isValid = isValidUsername(username, adminList);
-		setUsernameIsValid(isValid);
-	}, [username, adminList]);
-
-	useEffect(() => {
-		const isValid = isValidPassword(password, adminList);
-		setPasswordIsValid(isValid);
-	}, [password, adminList]);
 
 	const handleusernameChange = (e) => {
 		setUsername(e.target.value);
@@ -57,16 +54,18 @@ const AdminLogin = () => {
 	const handlePasswordChange = (e) => {
 		setPassword(e.target.value);
 	};
-	const handleLogin = (e) => {
-		if (usernameIsValid && passwordIsValid) {
-			let checkMatch = isValidLogin(username, password, adminList)
-			if (checkMatch) {
-				setLoggedIn(true)
-			}
-		} else if (usernameIsValid && !passwordIsValid) {
-			e.preventDefault()
-		} else if (!usernameIsValid && passwordIsValid) {
-			e.preventDefault()
+	const handleLogin = async (e) => {
+		setIsLoading(true)
+
+		const validate = await loginUser(username, password)
+		console.log(validate);
+
+		if (validate) {
+			setLoggedIn(true)
+			setIsLoading(false)
+		} else {
+			setErrorMessage('Fel användarnamn eller lösenord')
+			setIsLoading(false)
 		}
 	}
 
@@ -75,31 +74,31 @@ const AdminLogin = () => {
 			<LoginHeading>Administratör-inloggning</LoginHeading>
 			<InputGroup>
 				<label htmlFor="username">Användarnamn</label>
-				<input
+				<Input
 					type="text"
 					id="username"
 					name="Användarnamn"
 					value={username}
 					onChange={handleusernameChange}
-					onBlur={() => setUsernameIsDirty(true)} />
-				<span className="valid-e-number">
-					{usernameIsDirty ? (usernameIsValid ? "✔️" : "❌") : ""}
-				</span>
+				// onBlur={() => setUsernameIsDirty(true)} 
+				/>
+
 			</InputGroup>
 			<InputGroup>
 				<label htmlFor="password">Lösenord</label>
-				<input
+				<Input
 					type="password"
 					id="password"
 					name="Lösenord"
 					value={password}
 					onChange={handlePasswordChange}
-					onBlur={() => setPasswordIsDirty(true)} />
-				<span className="valid-password">
-					{passwordIsDirty ? (passwordIsValid ? "✔️" : "❌") : ""}
-				</span>
+				// onBlur={() => setPasswordIsDirty(true)} 
+				/>
 			</InputGroup>
-			<LoginButton onClick={handleLogin}>Logga in</LoginButton>
+			<Error className="error-message">
+				{errorMessage && <p>{errorMessage}</p>}
+			</Error>
+			<LoginButton onClick={handleLogin} disabled={isLoading}>Logga in</LoginButton>
 		</LogInModal>
 	)
 }

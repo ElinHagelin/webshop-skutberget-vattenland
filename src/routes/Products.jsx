@@ -5,6 +5,7 @@ import productSorting from "../utils/productSorting";
 import productMatch from "../utils/searchFunctions";
 import { useRecoilState } from "recoil";
 import { productsAtom } from "../data/atoms/productsAtom";
+import { Input } from "../components/BasicStyles";
 
 
 const MainContainer = styled.main`
@@ -31,13 +32,12 @@ const SortSelect = styled.select`
 	padding: 0.3em;
 `
 
-const SearchInput = styled.input`
+const SearchInput = styled(Input)`
 	max-width: 15em;
 	margin-bottom: 1em;
-	padding: 0.3em;
 `
 
-const ProductGrid = styled.div`
+export const ProductGrid = styled.div`
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
 	padding: 1em 0;
@@ -95,7 +95,7 @@ const Products = () => {
 					))}
 
 				</ProductGrid>
-				: <p>Please wait, loading products...</p>}
+				: <p>Laddar produkter...</p>}
 		</MainContainer>
 	)
 }

@@ -21,7 +21,7 @@ export async function getProducts() {
 	return null
 }
 
-export async function uploadProduct(name, description, price, id, picture) {
+export async function uploadProduct(name, description, price, picture) {
 
 	const url = 'https://www.forverkliga.se/JavaScript/api/fe/?action=add-product'
 
@@ -52,15 +52,14 @@ export async function deleteProduct(productId) {
 	const url = 'https://www.forverkliga.se/JavaScript/api/fe/?action=delete-product'
 
 	const data = {
-		action: 'delete-product',
-		productid: productId,
-		shopid: shopId
+		shopid: shopId,
+		productid: productId
 	}
 
 	const options = {
 		method: 'DELETE',
 		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(data)
+		body: JSON.stringify(data),
 	}
 	const response = await fetch(url, options)
 	const statusObject = await response.json()

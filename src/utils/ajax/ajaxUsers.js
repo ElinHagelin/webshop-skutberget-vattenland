@@ -1,12 +1,12 @@
 import { shopId } from "../../data/constants"
 
 
-export async function getUsers() {
+async function getUsers() {
 
 	const url = `https://www.forverkliga.se/JavaScript/api/fe/`
 	// const shop = shopId
 
-	let urlWithQuery = url + '?action=get-users&shopid=' + shop
+	let urlWithQuery = url + '?action=get-users&shopid=' + shopId
 	try {
 		const response = await fetch(urlWithQuery)
 		const data = await response.json()
@@ -34,7 +34,7 @@ async function addNewUser(username, password) {
 	}
 	const response = await fetch(url, options)
 	const statusObject = await response.json()
-	if (statusObject.stats === 'success') {
+	if (statusObject.status === 'success') {
 		console.log('success');
 		return true
 	}
@@ -59,7 +59,7 @@ async function loginUser(username, password) {
 	}
 	const response = await fetch(url, options)
 	const statusObject = await response.json()
-	if (statusObject.stats === 'success') {
+	if (statusObject.status === 'success') {
 		console.log('success');
 		return true
 	}
@@ -67,7 +67,7 @@ async function loginUser(username, password) {
 	return false  // if you get false, use console.log to inspect the object
 }
 
-export async function deleteProduct(username, password) {
+async function deleteUser(id) {
 
 	// Gör en find-funktion för att hitta user-id:t på rätt användare
 
@@ -75,7 +75,7 @@ export async function deleteProduct(username, password) {
 
 	const data = {
 		action: 'delete-user',
-		id: userId,
+		id: id,
 		shopid: shopId
 	}
 
@@ -89,11 +89,10 @@ export async function deleteProduct(username, password) {
 	if (statusObject.status === 'success') {
 		console.log('success');
 		return true
+	} else {
+		console.log('failed', statusObject);
+		return false
 	}
-	console.log('failed', statusObject);
-	return false  // if you get false, use console.log to inspect the object
 }
 
-
-
-export { getUsers, addNewUser }
+export { getUsers, addNewUser, loginUser, deleteUser }

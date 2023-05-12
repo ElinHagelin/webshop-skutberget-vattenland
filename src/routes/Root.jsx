@@ -33,7 +33,7 @@ function Root() {
       console.log('productsFromAPI är: ', productsFromAPI);
     }
     fetchProducts()
-  }, [setProducts])
+  }, [])
 
   // return (
   //   <Body>

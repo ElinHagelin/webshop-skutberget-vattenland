@@ -1,12 +1,5 @@
 * {
 	margin: 0;
 	box-sizing: border-box;
-}
-
-.login-modal {
-	display: flex;
-}
-
-.hidden {
-	display: none;
+	padding: 0;
 }

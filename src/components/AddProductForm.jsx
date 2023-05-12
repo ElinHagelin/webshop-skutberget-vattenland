@@ -1,6 +1,10 @@
 import { useState } from "react"
 import styled from "styled-components"
 import inputList from '../data/productFormInputList.js'
+import { getProducts, uploadProduct } from "../utils/ajax/ajaxProducts.js"
+import { useRecoilState } from "recoil"
+import { productsAtom } from "../data/atoms/productsAtom.js"
+import { Button, Input } from "./BasicStyles.js"
 
 export const Form = styled.form`
 	display: flex;
@@ -15,15 +19,17 @@ export const InputGroup = styled.div`
 	margin: 0.3em 0;
 `
 
-export const AddButton = styled.button`
+const TextArea = styled.textarea`
+	padding: 0.3em 0.5em;
+	border-radius: 0.4em;
+	resize: none;
+	min-height: 4em;
+`
+
+export const AddButton = styled(Button)`
 	margin-top: 1em;
-	max-width: fit-content;
-	padding: 0.3em 0.8em;
-	align-self: center;
-	border-radius: 0.5em;
 	background-color: #62a3af;
 	border: 1px solid #50919c;
-	box-shadow: 0.3em 0.3em 1em lightgray;
 
 	&:hover {
 		background-color: #77b5c0;
@@ -31,12 +37,31 @@ export const AddButton = styled.button`
 	}
 `
 
+const Status = styled.span`
+	min-height: 1.1em;
+	margin-top: 0.4em;
+`
+
 const AddProductForm = () => {
+	const [products, setProducts] = useRecoilState(productsAtom)
 	const [productName, setProductName] = useState('')
 	const [productDescription, setProductDescription] = useState('')
 	const [productPrice, setProductPrice] = useState('')
 	const [productImg, setProductImg] = useState('')
+	const [isLoading, setIsLoading] = useState(false)
+	const [statusMessage, setStatusMessage] = useState('')
 
+	const success = 'Produkten tillagd i listan'
+	const failed = 'Misslyckades med att lägga till produkten'
+
+	// Sätt en useEffect här som lyssnar på statusMessage och sätter en timeout innan den sätter tillbaka statusMessage till ''.
+
+	// useEffect(() => {
+	// 	const timer = setTimeout(() => {
+	// 	  setStatusMessage('');
+	// 	}, 1000);
+	// 	return () => clearTimeout(timer);
+	//   }, [statusMessage]);
 
 	inputList.map(input => {
 		if (input.inputId == 'product-name') {
@@ -52,8 +77,25 @@ const AddProductForm = () => {
 			input.state = productImg
 			input.setState = setProductImg
 		}
-
 	})
+
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+		setIsLoading(true)
+
+		const upload = await uploadProduct(productName, productDescription, productPrice, productImg)
+		console.log(upload);
+
+		if (upload) {
+			setIsLoading(false)
+			setStatusMessage(success)
+			const newProductList = await getProducts()
+			setProducts(newProductList)
+		} else {
+			setIsLoading(false)
+			setStatusMessage(failed)
+		}
+	}
 
 	return (
 		<Form action="#">
@@ -62,22 +104,27 @@ const AddProductForm = () => {
 				<InputGroup key={input.inputId}>
 					<label htmlFor={input.inputId}>{input.name}</label>
 					{input.type === 'text'
-						? <input
+						? <Input
 							type='text'
 							id={input.inputId}
 							value={input.state}
 							onChange={(e) => input.setState(e.target.value)}
+							required
 						/>
-						: <textarea
+						: <TextArea
 							id={input.inputId}
 							value={input.state}
 							onChange={(e) => input.setState(e.target.value)}
+							required
 						/>
 					}
 				</InputGroup>
+
 			))}
 
-			<AddButton>Lägg till</AddButton>
+			<Status>{statusMessage && <p>{statusMessage}</p>}</Status>
+
+			<AddButton type="submit" onClick={handleSubmit} disabled={isLoading}>Lägg till</AddButton>
 		</Form>
 	)
 }

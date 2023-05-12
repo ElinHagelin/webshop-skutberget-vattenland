@@ -43,10 +43,27 @@ const NavBar = styled.nav`
 	position: relative;
 `
 
+const HeaderNavLink = styled(NavLink)`
+	color: black;
+	font-size: 1.2em;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+		transform: scale(1.1);
+	}
+	&.active {
+		text-decoration: underline;
+	}
+`
+
 const HeaderButton = styled.button`
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
 
 	&:hover {
 		transform: scale(1.1)
@@ -68,29 +85,38 @@ const Header = () => {
 		navigate('/')
 	}
 
-	return (
-		<HeaderStyled>
-			<HeaderLogo>Skutberget Vattenland <br />
-				Webshop
-			</HeaderLogo>
-			{loggedIn
-				? <NavBar>
-					<NavLink to='admin/users'>Admins</NavLink>
-					<NavLink to='admin/products'>Produkter</NavLink>
-					<HeaderButton onClick={handleLogout}>Logga ut <img src={logoutIcon} alt="Logga ut" /></HeaderButton>
-				</NavBar>
 
-				: <NavBar>
-					<NavLink to='/'>Hem</NavLink>
-					<NavLink to='/products'>Produkter</NavLink>
+	if (loggedIn === false) {
+		return (
+			<HeaderStyled>
+				<HeaderLogo>Skutberget Vattenland <br />
+					Webshop
+				</HeaderLogo>
+				<NavBar>
+					<HeaderNavLink to='/'>Hem</HeaderNavLink>
+					<HeaderNavLink to='/products'>Produkter</HeaderNavLink>
 					<HeaderButton><img src={shoppingCart} alt="kundvagn"
 						onClick={handleCartClick}
 					/></HeaderButton>
 				</NavBar>
-			}
-			<Cart />
-		</HeaderStyled>
-	)
+				<Cart />
+			</HeaderStyled>
+		)
+	} else {
+		return (
+			<HeaderStyled>
+				<HeaderLogo>Skutberget Vattenland <br />
+					Webshop
+				</HeaderLogo>
+				<NavBar>
+					<HeaderNavLink to='admin/users'>Admins</HeaderNavLink>
+					<HeaderNavLink to='admin/products'>Produkter</HeaderNavLink>
+					<HeaderButton onClick={handleLogout}>Logga ut <img src={logoutIcon} alt="Logga ut" /></HeaderButton>
+				</NavBar>
+				<Cart />
+			</HeaderStyled>
+		)
+	}
 }
 
 export default Header
