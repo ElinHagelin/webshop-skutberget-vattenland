@@ -9,7 +9,7 @@ import { Link } from "react-router-dom"
 
 
 const FooterStyled = styled.footer`
-	background-color: #9ddcf0;
+	background: radial-gradient(circle at 10% 20%, rgb(147, 230, 235) 0%, rgb(64, 177, 215) 100.7%);
 	padding: 2rem;
 	display: flex;
 	justify-content: space-around;

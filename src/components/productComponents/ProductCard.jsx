@@ -15,6 +15,7 @@ const Card = styled.div`
 	border-radius:1em;
 	display: flex;
 	flex-direction:column;
+	background-color: #f1fbfc;
 	
 	@media (min-width: 400px) {
 		box-shadow: 0.3em 0.3em 1em lightgray;
