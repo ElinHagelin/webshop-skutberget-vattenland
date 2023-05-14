@@ -22,18 +22,20 @@ const Main = styled.main`
   flex-direction: column;
   `
 
+
 function Root() {
 
   const [products, setProducts] = useRecoilState(productsAtom)
 
+  async function fetchProducts() {
+    const productsFromAPI = await getProducts()
+    setProducts(productsFromAPI)
+    console.log('productsFromAPI är: ', productsFromAPI);
+  }
+
   useEffect(() => {
-    async function fetchProducts() {
-      const productsFromAPI = await getProducts()
-      setProducts(productsFromAPI)
-      console.log('productsFromAPI är: ', productsFromAPI);
-    }
     fetchProducts()
-  }, [setProducts])
+  }, [])
 
 
   return (

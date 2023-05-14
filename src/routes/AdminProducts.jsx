@@ -1,4 +1,4 @@
-import { useRecoilState, selector, useRecoilValue } from "recoil"
+import { useRecoilState } from "recoil"
 import styled from "styled-components"
 import AddProductForm from "../components/AddProductForm"
 import { productsAtom } from "../data/atoms/productsAtom"
@@ -15,15 +15,11 @@ export const FormContainer = styled.div`
 	`
 
 
-const productsSelector = selector({
-	key: 'productsSelector',
-	get: ({ get }) => get(productsAtom),
-});
-
-const AdminProducts = () => {
-	const products = useRecoilValue(productsSelector)
+const AdminProducts = ({ fetchProducts }) => {
+	const [products, setProducts] = useRecoilState(productsAtom)
 	const [loggedIn] = useRecoilState(loggedInAtom)
 	const navigate = useNavigate()
+
 
 	useEffect(() => {
 		if (!loggedIn) {
@@ -35,7 +31,7 @@ const AdminProducts = () => {
 	return (
 		<>
 			<FormContainer>
-				<AddProductForm />
+				<AddProductForm setProducts={setProducts} fetchProducts={fetchProducts} />
 			</FormContainer>
 
 			{

@@ -1,8 +1,1 @@
-* Navbaren ska bli en hamburgermeny i mindre skärmar.
-
-* Lägg till återkoppling när man lägger något i kundvagnen
-
-* Lägg till återkoppling när man lägger till eller tar bort produkter och användare som admin.
-	- Har lagt till ett meddelande som visar om det lyckades eller inte, men skulle vilja att det bara är framme en liten stund och sen försvinner
-
 * Töm formulären när man lagt till produkt/användare.

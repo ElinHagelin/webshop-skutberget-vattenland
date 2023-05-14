@@ -32,7 +32,6 @@ export const ProductInCart = styled.div`
 	'name price'
 	'amount amount';
 	margin: 0.5em 0;
-	/* border: 1px solid black; */
 	border-radius: 0.5em;
 	padding: 0.5em;
 `
@@ -51,12 +50,12 @@ export const Amount = styled.div`
 	grid-area: amount;
 `
 
-const ChangeAmountButton = styled(Button)`
+export const ChangeAmountButton = styled(Button)`
 	padding: 0.1em 0.4em;
 	margin: 0 0.2em;
 `
 
-const TotalPrice = styled.p`
+export const TotalPrice = styled.p`
 	font-weight: bold;
 	align-self: center;
 `
@@ -82,7 +81,6 @@ const Cart = () => {
 		totalPrice = totalPrice + productPrice
 	})
 
-	// if (showCart) {
 	return (
 		<CartStyled showCart={showCart}>
 			<h3>Kundvagn</h3>
@@ -97,13 +95,9 @@ const Cart = () => {
 				:
 				<div><p>Inga produkter..</p></div>}
 			{<TotalPrice>Totalt: {totalPrice}:-</TotalPrice>}
-			<GoToCartButton><NavLink to={'/cart'}>Gå till kundvagen</NavLink></GoToCartButton>
+			<GoToCartButton><NavLink to={'/cart'} onClick={() => setShowCart(false)}>Gå till kundvagen</NavLink></GoToCartButton>
 		</CartStyled>
 	)
-	// } 
-	// else {
-	// 	return
-	// }
 }
 
 export default Cart

@@ -45,7 +45,6 @@ const NavBar = styled.nav`
 	flex-flow: row nowrap;
 	background-color: #ecfaff;
 	gap: 3em;
-	/* justify-content: space-around; */
 	padding: 1.5em;
 	
 	& a {
@@ -71,7 +70,7 @@ const NavBar = styled.nav`
 
 const HeaderNavLink = styled(NavLink)`
 	color: black;
-	font-size: 1.2em;
+	font-size: 1.3em;
 	text-decoration: none;
 	
 	&.active {
@@ -89,8 +88,6 @@ const HeaderButton = styled.button`
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
-	/* display: flex; */
-	/* align-items: center; */
 	gap: 0.5em;
 
 	&:hover {
@@ -105,9 +102,6 @@ const HeaderButton = styled.button`
 const StyledBurger = styled.div`
 	width: 2rem;
 	height: 2rem;
-	/* position: fixed;
-	top: 15px;
-	left: 20px; */
 	margin: 0.5em;
 	display: none;
 
@@ -149,7 +143,6 @@ const Header = () => {
 	const handleCartClick = () => {
 		setExtendedMenu(false)
 		setShowCart(!showCart)
-		console.log(showCart);
 	}
 
 	const handleLogout = () => {

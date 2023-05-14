@@ -1,7 +1,7 @@
 import { Form, InputGroup } from "./AddProductForm"
 import { Input } from "./BasicStyles"
 import { addNewUser, getUsers } from "../utils/ajax/ajaxUsers"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { AddButton, Status } from "./AddProductForm"
 import { isValidPassword, isValidUsername } from "../utils/loginValidation"
 import styled from "styled-components"
@@ -25,12 +25,21 @@ const AddAdminForm = () => {
 	const [passwordError, setPasswordError] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
 	const [statusMessage, setStatusMessage] = useState('')
+	const [showUserStatus, setShowUserStatus] = useState(false)
 
 	const success = 'Användaren tillagd i listan'
 	const failed = 'Misslyckades med att lägga till användaren'
 
 	let validUserName = isValidUsername(userName)
 	let validPassword = isValidPassword(password)
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setShowUserStatus(false)
+		}, 6000);
+		return () => clearTimeout(timer);
+
+	}, [showUserStatus])
 
 
 	const handleAddUser = async (e) => {
@@ -41,11 +50,13 @@ const AddAdminForm = () => {
 		if (addUser) {
 			setIsLoading(false)
 			setStatusMessage(success)
+			setShowUserStatus(true)
 			const newAdminList = await getUsers()
 			setAdmins(newAdminList)
 		} else {
 			setIsLoading(false)
 			setStatusMessage(failed)
+			setShowUserStatus(true)
 		}
 	}
 
@@ -94,7 +105,7 @@ const AddAdminForm = () => {
 			</InputGroup>
 			<ErrorMessage>{passwordIsDirty && (validPassword === false && <p>{passwordError}</p>)}</ErrorMessage>
 
-			<Status>{statusMessage && <p>{statusMessage}</p>}</Status>
+			<Status>{statusMessage && showUserStatus ? <p>{statusMessage}</p> : null}</Status>
 
 			<AddButton type='submit' onClick={handleAddUser} disabled={isLoading}>Lägg till</AddButton>
 		</Form>

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import styled from "styled-components"
 import { getProducts, uploadProduct } from "../utils/ajax/ajaxProducts.js"
 import { useRecoilState } from "recoil"
@@ -43,8 +43,7 @@ export const Status = styled.span`
 	margin-top: 0.4em;
 `
 
-const AddProductForm = () => {
-	const [products, setProducts] = useRecoilState(productsAtom)
+const AddProductForm = ({ setProducts, fetchProducts }) => {
 	const [productName, setProductName] = useState('')
 	const [nameIsDirty, setNameIsDirty] = useState(false)
 	const [description, setDescription] = useState('')
@@ -55,19 +54,11 @@ const AddProductForm = () => {
 	const [pictureIsDirty, setPictureIsDirty] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
 	const [statusMessage, setStatusMessage] = useState('')
+	const [showStatus, setShowStatus] = useState(false)
 
 	const success = 'Produkten tillagd i listan'
 	const failed = 'Misslyckades med att lägga till produkten'
 
-	// Sätt en useEffect här som lyssnar på statusMessage och sätter en timeout innan den sätter tillbaka statusMessage till ''.
-
-	// useEffect(() => {
-	// 	const timer = setTimeout(() => {
-	// 	  setStatusMessage('');
-	// 	}, 1000);
-	// 	return () => clearTimeout(timer);
-	//   }, [statusMessage]);
-	// let validation = null
 
 	const nameIsValid = isValidProductName(productName)
 	const descriptionIsValid = isValidProductDescription(description)
@@ -75,21 +66,35 @@ const AddProductForm = () => {
 	const urlIsValid = isValidProductUrl(picture)
 
 
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setShowStatus(false)
+		}, 6000);
+		return () => clearTimeout(timer);
+
+	}, [showStatus])
+
+	async function fetchProducts() {
+		const productsFromAPI = await getProducts()
+		setProducts(productsFromAPI)
+		console.log('productsFromAPI är: ', productsFromAPI);
+	}
+
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		setIsLoading(true)
 
 		const upload = await uploadProduct(productName, description, price, picture)
-		console.log(upload);
 
 		if (upload) {
 			setIsLoading(false)
 			setStatusMessage(success)
-			const newProductList = await getProducts()
-			setProducts(newProductList)
+			setShowStatus(true)
+			fetchProducts()
 		} else {
 			setIsLoading(false)
 			setStatusMessage(failed)
+			setShowStatus(true)
 		}
 	}
 
@@ -145,7 +150,9 @@ const AddProductForm = () => {
 					type='text'
 					id='product-url'
 					value={picture}
-					onChange={(e) => setPicture(e.target.value)}
+					onChange={(e) => {
+						setPicture(e.target.value)
+					}}
 					onBlur={() => setPictureIsDirty(true)}
 					required
 				/>
@@ -154,7 +161,7 @@ const AddProductForm = () => {
 			<ErrorMessage>{pictureIsDirty && (urlIsValid === false && <p>kontrollera att url:en är giltig</p>)}</ErrorMessage>
 
 
-			<Status>{statusMessage && <p>{statusMessage}</p>}</Status>
+			<Status>{statusMessage && showStatus ? <p>{statusMessage}</p> : null}</Status>
 
 			<AddButton type="submit" onClick={handleSubmit} disabled={isLoading}>Lägg till</AddButton>
 		</Form>

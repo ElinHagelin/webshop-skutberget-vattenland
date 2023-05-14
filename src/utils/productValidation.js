@@ -1,10 +1,9 @@
 
 
 const isValidProductName = (name) => {
-	const regex = /^[a-ö]{3,}$/;
+	const regex = /^[a-öA-Ö]{3,}$/;
 
 	if (regex.test(name)) {
-
 		return true
 	} else {
 		return false
@@ -15,7 +14,6 @@ const isValidProductDescription = (desc) => {
 	const regex = /^[a-öA-Ö0-9.,!?"\s]{3,}$/
 
 	if (regex.test(desc)) {
-
 		return true
 	} else {
 		return false
@@ -34,7 +32,7 @@ const isValidProductPrice = (price) => {
 
 
 const isValidProductUrl = (url) => {
-	const regex = /^https:\/\/[\w\d+@#%\/?=~_|!:,.;-]*$/
+	const regex = /^https:\/\//
 
 	if (regex.test(url)) {
 		return true

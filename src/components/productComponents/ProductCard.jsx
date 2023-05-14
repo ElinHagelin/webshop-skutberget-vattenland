@@ -10,7 +10,7 @@ import { Button } from "../BasicStyles"
 import { productsAtom } from "../../data/atoms/productsAtom"
 import { showCartAtom } from "../../data/atoms/showCartAtom"
 import { showCartTemporarilyAtom } from "../../data/atoms/showCartTemporarilyAtom"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 
 const Card = styled.div`
@@ -75,6 +75,7 @@ const ProductCard = ({ product }) => {
 	const [loggedIn] = useRecoilState(loggedInAtom)
 	const [products, setProducts] = useRecoilState(productsAtom)
 	const [showCartTemporarily, setShowCartTemporarily] = useRecoilState(showCartTemporarilyAtom);
+	const [isLoading, setIsLoading] = useState(false)
 
 	useEffect(() => {
 		if (showCartTemporarily) {
@@ -92,12 +93,15 @@ const ProductCard = ({ product }) => {
 	}
 	const handleDeleteFromProductList = async (e, productId) => {
 		e.preventDefault()
+		setIsLoading(true)
 		const remove = await deleteProduct(productId)
 		if (remove) {
+			setIsLoading(false)
 			const newProductList = await getProducts()
 			setProducts(newProductList)
 			console.log('newProductList är: ', newProductList);
 		} else {
+			setIsLoading(false)
 			console.log('failed to remove');
 		}
 	}
@@ -111,7 +115,7 @@ const ProductCard = ({ product }) => {
 						<h3>{product.name}</h3>
 						<CardPrice>{product.price}:-</CardPrice>
 						{loggedIn === true
-							? <DeleteButton onClick={(e) => handleDeleteFromProductList(e, product.id)}><img src={deleteBin} alt="Ta bort" /> </DeleteButton>
+							? <DeleteButton onClick={(e) => handleDeleteFromProductList(e, product.id)} disabled={isLoading}><img src={deleteBin} alt="Ta bort" /> </DeleteButton>
 							:
 							<Button onClick={handleAddToCart}>Lägg till</Button>
 						}

@@ -1,18 +1,32 @@
 import { useRecoilState } from "recoil"
 import styled from "styled-components"
 import { cartAtom } from "../data/atoms/cartAtom"
-import { ProductInCart, ProductName, Price, Amount } from "../components/Cart"
+import { ProductInCart, ProductName, Price, Amount, ChangeAmountButton, TotalPrice } from "../components/Cart"
 
 
 const Content = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin: 0 auto;
+	padding: 1em;
 `
+
+const CartHeading = styled.h1`
+	margin-bottom: 0.5em;
+`
+
 const Name = styled(ProductName)`
 	font-size: 1.1em;
 `
 
+const ProductOnCartPage = styled(ProductInCart)`
+	min-width: 16em;
+`
+
+const TotalPriceInCart = styled(TotalPrice)`
+	margin-top: 2em;
+`
 
 
 const CartPage = () => {
@@ -26,18 +40,18 @@ const CartPage = () => {
 
 	return (
 		<Content>
-			<h1>Kundvagnen</h1>
+			<CartHeading>Kundvagnen</CartHeading>
 			{cart != [] ? cart.map(product =>
-				<ProductInCart key={product.id}>
+				<ProductOnCartPage key={product.id}>
 					<Name to={'/details/' + product.id}>{product.name}</Name>
 					<Price>{product.price * product.amount}:-</Price>
 					<Amount>
-						<p>Antal: <span><button onClick={() => removeFromCart(product, cart, setCart)}>-</button></span> {product.amount} <span><button onClick={() => addToCart(product, cart, setCart)}>+</button></span></p>
+						<p>Antal: {product.amount}</p>
 					</Amount>
-				</ProductInCart>)
+				</ProductOnCartPage>)
 				:
 				<div><p>Inga produkter..</p></div>}
-			{totalPrice > 0 && <p>Totalt: {totalPrice}:-</p>}
+			{totalPrice > 0 && <TotalPriceInCart>Totalt: {totalPrice}:-</TotalPriceInCart>}
 
 		</Content>
 	)
