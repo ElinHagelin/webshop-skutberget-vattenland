@@ -6,6 +6,7 @@ import styled from "styled-components";
 import addToCart from "../utils/AddToCart";
 import removeFromCart from "../utils/removeFromCart";
 import { Button } from "./BasicStyles";
+import { showCartTemporarilyAtom } from "../data/atoms/showCartTemporarilyAtom";
 
 const CartStyled = styled.div`
 	position: fixed;
@@ -20,6 +21,7 @@ const CartStyled = styled.div`
 	min-width: 18rem;
 	transition: transform 0.3s ease-in-out;
 	transform: ${({ showCart }) => showCart ? 'translateX(0)' : 'translateX(100%)'};
+	box-shadow: 0em 1em 2em  lightgray;
 `
 
 export const ProductInCart = styled.div`
@@ -30,7 +32,7 @@ export const ProductInCart = styled.div`
 	'name price'
 	'amount amount';
 	margin: 0.5em 0;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	border-radius: 0.5em;
 	padding: 0.5em;
 `
@@ -49,8 +51,8 @@ export const Amount = styled.div`
 	grid-area: amount;
 `
 
-const ChangeAmountButton = styled.button`
-	padding: 0.2em 0.3em;
+const ChangeAmountButton = styled(Button)`
+	padding: 0.1em 0.4em;
 	margin: 0 0.2em;
 `
 
@@ -70,7 +72,8 @@ const GoToCartButton = styled(Button)`
 
 const Cart = () => {
 	const [cart, setCart] = useRecoilState(cartAtom)
-	const [showCart] = useRecoilState(showCartAtom)
+	const [showCart, setShowCart] = useRecoilState(showCartAtom)
+	const [showCartTemporarily, setShowCartTemporarily] = useRecoilState(showCartTemporarilyAtom);
 
 
 	let totalPrice = 0
@@ -88,7 +91,7 @@ const Cart = () => {
 					<ProductName to={'/details/' + product.id}>{product.name}</ProductName>
 					<Price>{product.price * product.amount}:-</Price>
 					<Amount>
-						<p>Antal: <span><ChangeAmountButton onClick={() => removeFromCart(product, cart, setCart)}>-</ChangeAmountButton></span> {product.amount} <span><ChangeAmountButton onClick={() => addToCart(product, cart, setCart)}>+</ChangeAmountButton></span></p>
+						<p>Antal: <span><ChangeAmountButton onClick={() => removeFromCart(product, cart, setCart)}>-</ChangeAmountButton></span> {product.amount} <span><ChangeAmountButton onClick={() => addToCart(product, cart, setCart, setShowCart, setShowCartTemporarily)}>+</ChangeAmountButton></span></p>
 					</Amount>
 				</ProductInCart>)
 				:

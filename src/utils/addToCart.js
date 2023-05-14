@@ -1,5 +1,5 @@
 
-const addToCart = (product, cart, setCart) => {
+const addToCart = (product, cart, setCart, showCart, setShowCart, setShowCartTemporarily) => {
 
 	// Kollar om produkten finns i kundvagnen sen tidigare, lägger bara till en. Klickar man lägg till flera gånger på samma produkt läggs det till i amount i den produkten i varukorgen.
 
@@ -18,6 +18,10 @@ const addToCart = (product, cart, setCart) => {
 		const upDatedCart = copy.splice(productIndex, 1, modifiedProduct)
 
 		setCart(copy)
+	}
+	if (!showCart) {
+		setShowCartTemporarily(true)
+		setShowCart(true);
 	}
 }
 

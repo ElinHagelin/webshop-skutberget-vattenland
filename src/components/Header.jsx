@@ -1,7 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import shoppingCart from '../assets/icons/shopping-cart-2-line.png'
-import headerBackground from '../assets/images/header-background-medium.jpg'
 import { useRecoilState } from 'recoil'
 import { showCartAtom } from '../data/atoms/showCartAtom'
 import Cart from './Cart'
@@ -18,6 +17,12 @@ const HeaderStyled = styled.header`
 	padding: 0 0.5em;
 	justify-content: space-between;
 	align-items:center;
+	background-color: #ecfaff;
+	position: sticky;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
 	
 	@media (min-width: 700px) {
 		padding: 0 2em;	
@@ -60,6 +65,7 @@ const NavBar = styled.nav`
 		align-items: center;
 		padding-top: 2rem;
 		gap: 1em;
+		box-shadow: 0em 1em 2em  lightgray;
 	}
 `
 

@@ -6,6 +6,7 @@ import productMatch from "../utils/searchFunctions";
 import { useRecoilState } from "recoil";
 import { productsAtom } from "../data/atoms/productsAtom";
 import { Input } from "../components/BasicStyles";
+import { cartAtom } from "../data/atoms/cartAtom";
 
 
 const MainContainer = styled.main`
@@ -58,7 +59,7 @@ export const ProductGrid = styled.div`
 const Products = () => {
 	const [products, setProducts] = useRecoilState(productsAtom)
 	const [productsToShow, setProductsToShow] = useState([...products])
-
+	const [cart] = useRecoilState(cartAtom)
 
 	const handleSearchChange = event => {
 		if (!event.target.value) {

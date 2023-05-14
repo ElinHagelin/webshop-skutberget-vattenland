@@ -8,6 +8,9 @@ import deleteBin from '../../assets/icons/delete-bin-line.png'
 import { deleteProduct, getProducts } from "../../utils/ajax/ajaxProducts"
 import { Button } from "../BasicStyles"
 import { productsAtom } from "../../data/atoms/productsAtom"
+import { showCartAtom } from "../../data/atoms/showCartAtom"
+import { showCartTemporarilyAtom } from "../../data/atoms/showCartTemporarilyAtom"
+import { useEffect } from "react"
 
 
 const Card = styled.div`
@@ -49,11 +52,6 @@ const CardContentContainer = styled.div`
 	flex-grow: 1;
 `
 
-// const CardHeading = styled(Link)`
-// 	color: black;
-// 	text-decoration: none;
-// `
-
 const CardPrice = styled.p`
 	align-self: flex-end;
 	margin-top: 0.5em;
@@ -73,12 +71,24 @@ const DeleteButton = styled(Button)`
 
 const ProductCard = ({ product }) => {
 	const [cart, setCart] = useRecoilState(cartAtom)
+	const [showCart, setShowCart] = useRecoilState(showCartAtom)
 	const [loggedIn] = useRecoilState(loggedInAtom)
 	const [products, setProducts] = useRecoilState(productsAtom)
+	const [showCartTemporarily, setShowCartTemporarily] = useRecoilState(showCartTemporarilyAtom);
+
+	useEffect(() => {
+		if (showCartTemporarily) {
+			const timer = setTimeout(() => {
+				setShowCartTemporarily(false)
+				setShowCart(false)
+			}, 3000);
+			return () => clearTimeout(timer);
+		}
+	}, [showCartTemporarily])
 
 	const handleAddToCart = (e) => {
 		e.preventDefault()
-		addToCart(product, cart, setCart)
+		addToCart(product, cart, setCart, showCart, setShowCart, setShowCartTemporarily)
 	}
 	const handleDeleteFromProductList = async (e, productId) => {
 		e.preventDefault()
@@ -100,9 +110,10 @@ const ProductCard = ({ product }) => {
 					<CardContentContainer>
 						<h3>{product.name}</h3>
 						<CardPrice>{product.price}:-</CardPrice>
-						{!loggedIn
-							? <Button onClick={handleAddToCart}>Lägg till</Button>
-							: <DeleteButton onClick={(e) => handleDeleteFromProductList(e, product.id)}><img src={deleteBin} alt="Ta bort" /> </DeleteButton>
+						{loggedIn === true
+							? <DeleteButton onClick={(e) => handleDeleteFromProductList(e, product.id)}><img src={deleteBin} alt="Ta bort" /> </DeleteButton>
+							:
+							<Button onClick={handleAddToCart}>Lägg till</Button>
 						}
 					</CardContentContainer>
 				</CardLink>
